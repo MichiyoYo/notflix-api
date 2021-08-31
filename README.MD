@@ -5,7 +5,7 @@ Users will be able to sign up, update their personal information, and create a l
 
 ## Tech Stack:
 
-- Node.js
 - MongoDB
-- HTML
-- CSS
+- Express
+- React
+- Node
