@@ -2,7 +2,7 @@
   "name": "movie_api",
   "version": "1.0.0",
   "description": "NotFlix is a web application that will provide users with access to information about different movies, directors, and genres.\r Users will be able to sign up, update their personal information, and create a list of their favorite movies.",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
