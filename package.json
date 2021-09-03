@@ -2,7 +2,7 @@
   "name": "movie_api",
   "version": "1.0.0",
   "description": "NotFlix is a web application that will provide users with access to information about different movies, directors, and genres.\r Users will be able to sign up, update their personal information, and create a list of their favorite movies.",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
@@ -15,7 +15,7 @@
   "author": {
     "name": "Cristina Lester",
     "email": "cristina.deelester@gmail.com",
-    "url": "cristinalester.rocks"
+    "url": "https://cristinalester.rocks"
   },
   "license": "ISC",
   "bugs": {
@@ -25,7 +25,8 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "eslint": "^7.32.0"
