@@ -64,10 +64,6 @@ app.get("/", (req, res) => {
   res.send(responseText);
 });
 
-app.get("/documentation", (req, res) => {
-  res.sendFile("public/documentation.html", { root: __dirname });
-});
-
 app.get("/movies", (req, res) => {
   res.json(topMovies);
 });
