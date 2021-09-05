@@ -1,7 +1,11 @@
 const express = require("express"),
   morgan = require("morgan");
 
-const app = express();
+const server = express();
+server.use(express.json());
+server.use(morgan("common"));
+
+const PORT = 8080;
 
 let topMovies = [
   {
@@ -55,24 +59,24 @@ let topMovies = [
     genre: "adventure",
   },
 ];
-app.use(morgan("common"));
-app.use(express.static("public"));
 
-app.get("/", (req, res) => {
+server.use("/docs", express.static("public/docs"));
+
+server.get("/", (req, res) => {
   let responseText =
     "<h1>Welcome to NotFlix! 🍿</h1><h2>Not your mother's movie DB.</h2>";
-  res.send(responseText);
+  res.status(200).send(responseText);
 });
 
-app.get("/movies", (req, res) => {
-  res.json(topMovies);
+server.get("/movies", (req, res) => {
+  res.status(200).json(topMovies);
 });
 
-app.use((err, req, res, next) => {
+server.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something went wrong 😿");
 });
 
-app.listen(8080, () => {
-  console.log("server running on port 8080");
+server.listen(PORT, () => {
+  console.log("Server running on port 8080 🤙 ");
 });

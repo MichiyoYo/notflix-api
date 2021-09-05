@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Documentation | MovieAPI</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="" />
+    <link rel="shortcut icon" href="./favicon.png" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+      integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <main>
+      <div class="container-fluid">
+        <div
+          class="
+            row
+            d-flex
+            flex-column
+            justify-content-center
+            align-items-center
+          "
+        >
+          <div class="col-md-8 col-small-12">
+            <h1 class="text-center">NotFlix API - Documentation 📚</h1>
+            <h2 class="mt-5">Objective</h2>
+            <p>
+              The web application will provide users with access to information
+              about different movies, directors, and genres. Users will be able
+              to sign up, update their personal information, and create a list
+              of their favorite movies.
+            </p>
+
+            <h3>Available Features</h3>
+            <ul>
+              <li>Return a list of ALL movies to the user</li>
+              <li>
+                Return data (description, genre, director, image URL, whether
+                it’s featured or not) about a single movie by title to the user
+              </li>
+              <li>
+                Return data about a genre (description) by name/title (e.g.,
+                “Thriller”)
+              </li>
+              <li>
+                Return data about a director (bio, birth year, death year) by
+                name
+              </li>
+              <li>Allow new users to register</li>
+              <li>
+                Allow users to update their user info (username, password,
+                email, date of birth)
+              </li>
+              <li>Allow users to add a movie to their list of favorites</li>
+              <li>
+                Allow users to remove a movie from their list of favorites
+              </li>
+              <li>Allow existing users to deregister</li>
+            </ul>
+
+            <h3>Extra Features</h3>
+            <ul>
+              <li>Allow users to see which actors star in which movies</li>
+              <li>Allow users to view information about different actors</li>
+              <li>
+                Allow users to view more information about different movies,
+                such as the release date andthe movie rating
+              </li>
+              <li>
+                Allow users to create a “To Watch” list in addition to their
+                “Favorite Movies” list
+              </li>
+            </ul>
+
+            <h3 class="mt-4">Endpoint Structure</h3>
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Requests</th>
+                    <th scope="col">ULR</th>
+                    <th scope="col">HTTP Method</th>
+                    <th scope="col">Request Body Data Format</th>
+                    <th scope="col">Response Body Data Format</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Return a list of all movies to the user</td>
+                    <td>/movies</td>
+                    <td>GET</td>
+                    <td>None</td>
+                    <td>A JSON holding the data about all the movies</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Return data (description, genre, director, image URL,
+                      whether it’s featured or not) about a single movie by
+                      title to the user
+                    </td>
+                    <td>/movies/[title]</td>
+                    <td>GET</td>
+                    <td>None</td>
+                    <td>
+                      A JSON object holding the data about a single movie,
+                      containing description, genre, director, image Url, if
+                      featured or not.<br />Example:<br />
+                      <!-- prettier-ignore-start -->
+                      <code>
+                        <pre>
+  { 
+    "title": "Back to the future",
+    "description": "description",
+    "genre": "sci-fi", 
+    "director": "Stephen Spilberg", 
+    "imageURL": "url",
+    "featured": true 
+  }
+                        </pre>
+                      </code>
+                      <!-- prettier-ignore-end -->
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Return data about a genre (description) by name/title
+                      (e.g., “Thriller”)
+                    </td>
+                    <td>/genres/[genre]</td>
+                    <td>GET</td>
+                    <td>None</td>
+                    <td>
+                      A JSON object holding the drescription of the genre.<br />
+                      Example:
+                      <code>
+                        <pre>
+  {
+    "genre": "thriller",
+    "description":"the description of this genre"
+  }
+                        </pre>
+                      </code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Allow users to update their user info (username)</td>
+                    <td>/register</td>
+                    <td>POST</td>
+                    <td>
+                      A JSON object holding data about the new user.<br />
+                      Example:
+                      <code>
+                        <pre>
+  {
+    "firstName": "Cree",
+    "lastName": "Lester",
+    "username": "creelester",
+    "password": "*******",
+    "email": "cree.lester@gmail.com",
+    "favoriteMovies": []
+  }
+                        </pre>
+                      </code>
+                    </td>
+                    <td>
+                      A JSON obj holding the data of the new added user,
+                      including a generated unique id.<br />
+                      Example:
+                      <code>
+                        <pre>
+  {
+    "id":1
+    "firstName": "Cree",
+    "lastName": "Lester",
+    "username": "creelester",
+    "password": "*******",
+    "email": "cree.lester@gmail.com",
+    "favoriteMovies": []
+  }
+                        </pre>
+                      </code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Allow users to update their user info (username, password,
+                      email, date of birth)
+                    </td>
+                    <td>/users/[id]/[infoToUpdate]/[newValue]</td>
+                    <td>PUT</td>
+                    <td>None</td>
+                    <td>
+                      A JSON obj holding the data of the user, including the
+                      updated username.<br />
+                      Example: for the request with URL
+                      /users/1/username/michiyoyo the following response will be
+                      returned:
+                      <code>
+                        <pre>
+  {
+    "id":1
+    "firstName": "Cree",
+    "lastName": "Lester",
+    "username": "michiyoyo"",
+    "password": "*******",
+    "email": "cree.lester@gmail.com",
+    "favoriteMovies": []
+  }
+                        </pre>
+                      </code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Allow users to add a movie to their list of favorites
+                    </td>
+                    <td>/users/[id]/favorites/[newFavMovieTitle]</td>
+                    <td>PUT</td>
+                    <td>None</td>
+                    <td>
+                      A message indicating that the movie has been successfully
+                      added to the list of the user's favorites.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Allow users to remove a movie from their list of favorites
+                    </td>
+                    <td>/users/[id]/favorites/[movieToRemoveTitle]</td>
+                    <td>DELETE</td>
+                    <td>None</td>
+                    <td>
+                      A message indicating that the movie has been successfully
+                      removed from the list of the user's favorites.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Allow existing users to deregister</td>
+                    <td>/users/[id]/unregister</td>
+                    <td>DELETE</td>
+                    <td>None</td>
+                    <td>
+                      A message indicating that the user has been successfully
+                      unregistered.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <div class="container-fluid">
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-8">
+            <a href="/" class="btn btn-outline-secondary">Back 🏠</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
