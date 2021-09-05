@@ -206,7 +206,7 @@
                       Allow users to update their user info (username, password,
                       email, date of birth)
                     </td>
-                    <td>/users/[id]/[infoToUpdate]/[newValue]</td>
+                    <td>/users/[usrId]/[infoToUpdate]/[newValue]</td>
                     <td>PUT</td>
                     <td>None</td>
                     <td>
@@ -234,8 +234,8 @@
                     <td>
                       Allow users to add a movie to their list of favorites
                     </td>
-                    <td>/users/[id]/favorites/[newFavMovieTitle]</td>
-                    <td>PUT</td>
+                    <td>/users/[usrId]/favorites/[newFavMovieId]</td>
+                    <td>PATCH</td>
                     <td>None</td>
                     <td>
                       A message indicating that the movie has been successfully
@@ -246,7 +246,7 @@
                     <td>
                       Allow users to remove a movie from their list of favorites
                     </td>
-                    <td>/users/[id]/favorites/[movieToRemoveId]</td>
+                    <td>/users/[usrId]/favorites/[movieToRemoveId]</td>
                     <td>DELETE</td>
                     <td>None</td>
                     <td>
@@ -256,7 +256,7 @@
                   </tr>
                   <tr>
                     <td>Allow existing users to deregister</td>
-                    <td>/users/[id]/unregister</td>
+                    <td>/users/[usrId]/unregister</td>
                     <td>DELETE</td>
                     <td>None</td>
                     <td>

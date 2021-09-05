@@ -321,11 +321,56 @@ server.patch("/users/:id/favorites/:newFavMovieId", (req, res) => {
 
 //deleting records
 
+server.delete("/users/:usrId/favorites/:movieToRemoveId", (req, res) => {
+  const { usrId, movieToRemoveId } = req.params;
+  const usrToUpdate = users.find((usr) => usr.id == usrId);
+  if (!usrToUpdate) {
+    return res
+      .status(404)
+      .send(`Not Found: The user with id ${id} doesn't exist. 🙅 `);
+  }
+  const movieToRemoveIndex = usrToUpdate.FavoriteMovies.findIndex(
+    (movId) => movId == movieToRemoveId
+  );
+  if (movieToRemoveIndex === -1) {
+    return res
+      .status(404)
+      .send(
+        `The movie with id ${movieToRemoveId} is not in the list of favories of this user. 🙅‍♂️`
+      );
+  }
+  usrToUpdate.FavoriteMovies.splice(movieToRemoveIndex, 1);
+  return res
+    .status(200)
+    .send("Movie successfully removed from list of favorites! ✔️");
+});
+
+server.delete("/users/:usrId/unregister", (req, res) => {
+  const { usrId } = req.params;
+  const usrToRemoveIndex = users.findIndex((usr) => usr.id == usrId);
+  if (usrToRemoveIndex > -1) {
+    users.splice(usrToRemoveIndex, 1);
+    return res
+      .status(200)
+      .send(`The user with id ${usrId} has been removed! 👌`);
+  } else {
+    return res
+      .status(404)
+      .send(`Not Found: The user with id ${usrId} doesn't exist. 🙅 `);
+  }
+});
+
+/**
+ * Error handling middleware function
+ */
 server.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Error 500: Something went wrong 😿");
 });
 
+/**
+ * Starting server
+ */
 server.listen(PORT, () => {
   console.log("Server running on port 8080 🤙 ");
 });
