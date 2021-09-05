@@ -1,8 +1,7 @@
 /**
  * @fileOverview Server application where API endpoints are defined
- * @author <a href="cristina.deelester@gmail.com">Cristina Lester</a>
+ * @author <a href="mailto:cristina.deelester@gmail.com" target="_blank">Cristina Lester</a>
  * @version 1.0.0
- * @requires express module
  */
 
 const express = require("express"),
