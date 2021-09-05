@@ -9,11 +9,13 @@ const express = require("express"),
   uuid = require("uuid");
 
 const server = express();
+//not using body-parser because it's deprecated
 server.use(express.json());
 server.use(morgan("common"));
 
 /**
  * The variable PORT holds the port number where the server is gonna be reacheable at
+ * @type {number}
  * @constant
  */
 const PORT = 8080;
