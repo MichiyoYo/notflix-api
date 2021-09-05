@@ -121,6 +121,10 @@ let topMovies = [
   },
 ];
 
+/**
+ * The array of genres containing their names and descriptions
+ * @type {object}
+ */
 let genres = [
   {
     Name: "Drama",
@@ -144,6 +148,10 @@ let genres = [
   },
 ];
 
+/**
+ * The array of users containing their info
+ * @type {object}
+ */
 let users = [
   {
     Username: "creelester",
@@ -156,12 +164,12 @@ let users = [
 ];
 
 /**
- * The docs static files are stored in the subdirectory docs under public
+ * The documentation's static files are stored in the subdirectory docs under public
  */
 server.use("/docs", express.static("public/docs"));
 
 /**
- * Main endpoint to reach the home page of NotFlix
+ * Main entry point to reach the home page of NotFlix
  */
 server.get("/", (req, res) => {
   let responseText =
@@ -169,7 +177,7 @@ server.get("/", (req, res) => {
   res.status(200).send(responseText);
 });
 
-// Fetching entry points
+// Fetching records
 
 /**
  * This endpoint fetches a list of all movies and returns it to the user
@@ -178,6 +186,10 @@ server.get("/movies", (req, res) => {
   res.status(200).json(topMovies);
 });
 
+/**
+ * This endpoint fetches a movie by title
+ * @example /movies/Parasite returns the details of the movie with title "Parasite"
+ */
 server.get("/movies/:title", (req, res) => {
   const { title } = req.params;
   let movieToFind = topMovies.find((film) => film.Title.includes(title));
@@ -190,6 +202,10 @@ server.get("/movies/:title", (req, res) => {
   }
 });
 
+/**
+ * This endpoint fetches informations about the a specific genre
+ * @example /genres/Crime returs the details of the genre "Crime"
+ */
 server.get("/genres/:genre", (req, res) => {
   const { genre } = req.params;
   let genretoFind = genres.find((gen) => gen.Name === genre);
@@ -202,17 +218,24 @@ server.get("/genres/:genre", (req, res) => {
   }
 });
 
+/**
+ * This endpoint fetches a list of all users
+ */
 server.get("/users", (req, res) => {
   res.status(200).json(users);
 });
 
-server.get("/users/:id/favorites", (req, res) => {
-  const { id } = req.params;
-  const usrToFind = users.find((usr) => usr.id == id);
+/**
+ * This endpoint fetches the list of favorites of the user with id usrId
+ * @example /users/1/favorites returns the list of favorites of the user with id "1"
+ */
+server.get("/users/:usrId/favorites", (req, res) => {
+  const { usrId } = req.params;
+  const usrToFind = users.find((usr) => usr.id == usrId);
   if (!usrToFind) {
     return res
       .status(404)
-      .send(`Not Found: The user with id ${id} doesn't exist. 🙅 `);
+      .send(`Not Found: The user with id ${usrId} doesn't exist. 🙅 `);
   } else {
     return res.status(200).json({
       favoriteMovieIDs: usrToFind.FavoriteMovies,
@@ -222,6 +245,18 @@ server.get("/users/:id/favorites", (req, res) => {
 
 //Adding records
 
+/**
+ * This endpoint adds a new user.
+ * The new user info are sent in the body of the request as a JSON object in the format.
+ * {
+ *   Username: "creelester",
+ *   Password: "badpassword123",
+ *   Email: "creelester@email.com",
+ *   Birthday: "04-14-1988",
+ *   FavoriteMovies: ["1"],
+ *  }
+ * Only the properties "Username" and "Password" are required
+ */
 server.post("/register", (req, res) => {
   let newUser = req.body;
   if (
@@ -247,16 +282,22 @@ server.post("/register", (req, res) => {
 
 //Updating records
 
-server.put("/users/:id/:infoToUpdate/:newValue", (req, res) => {
-  const { id, infoToUpdate, newValue } = req.params;
-  console.log(id, infoToUpdate, newValue);
-  let usrToUpdate = users.find((urs) => urs.id == id);
+/**
+ * This endpoint updates the info of the user with id usrId.
+ * The info to update and the new value are sent in the url as second to last and last agruments.
+ * Only the properties "Username", "Password" and "Email" can be updated.
+ * @example /users/1/Username/banana updates the username of the user with id "1" to "banana"
+ */
+server.put("/users/:usrId/:infoToUpdate/:newValue", (req, res) => {
+  const { usrId, infoToUpdate, newValue } = req.params;
+  console.log(usrId, infoToUpdate, newValue);
+  let usrToUpdate = users.find((urs) => urs.id == usrId);
   if (usrToUpdate) {
     if (!usrToUpdate.hasOwnProperty(infoToUpdate)) {
       return res
         .status(404)
         .send(
-          `Not Found: The user with id ${id} doesn't have a property called ${infoToUpdate} 🙅`
+          `Not Found: The user with id ${usrId} doesn't have a property called ${infoToUpdate} 🙅`
         );
     } else {
       switch (infoToUpdate) {
@@ -280,17 +321,22 @@ server.put("/users/:id/:infoToUpdate/:newValue", (req, res) => {
   } else {
     return res
       .status(404)
-      .send(`Not Found: The user with id ${id} doesn't exist. 🙅 `);
+      .send(`Not Found: The user with id ${usrId} doesn't exist. 🙅 `);
   }
 });
 
-server.patch("/users/:id/favorites/:newFavMovieId", (req, res) => {
-  const { id, newFavMovieId } = req.params;
-  const usrToUpdate = users.find((usr) => usr.id == id);
+/**
+ * This endpoint adds a movie id to the list of favorite movies of the user with id usrId,
+ * only if the movie id is not in the list yet.
+ * @exampe /users/1/favorites/2 adds the movie with id "2" to the list of favorites of the user with id "1"
+ */
+server.patch("/users/:usrId/favorites/:newFavMovieId", (req, res) => {
+  const { usrId, newFavMovieId } = req.params;
+  const usrToUpdate = users.find((usr) => usr.id == usrId);
   if (!usrToUpdate) {
     return res
       .status(404)
-      .send(`Not Found: The user with id ${id} doesn't exist. 🙅 `);
+      .send(`Not Found: The user with id ${usrId} doesn't exist. 🙅 `);
   } else {
     const movieToAdd = topMovies.find((mov) => mov.id == newFavMovieId);
     if (!movieToAdd) {
@@ -321,6 +367,11 @@ server.patch("/users/:id/favorites/:newFavMovieId", (req, res) => {
 
 //deleting records
 
+/**
+ * This endopoint removes a movie id from the list of favorites of the user with id usrId,
+ * only if the movie id is present in the list.
+ * @example /users/1/favorites/2 removes the movie with id "2" from the list of favorites of the user with id "1"
+ */
 server.delete("/users/:usrId/favorites/:movieToRemoveId", (req, res) => {
   const { usrId, movieToRemoveId } = req.params;
   const usrToUpdate = users.find((usr) => usr.id == usrId);
@@ -345,6 +396,11 @@ server.delete("/users/:usrId/favorites/:movieToRemoveId", (req, res) => {
     .send("Movie successfully removed from list of favorites! ✔️");
 });
 
+/**
+ * This endpoint removes a user with id usrId from the list of users,
+ * only if the user id is present in the list of users.
+ * @example /users/1/unregister removes the user with id "1" from the list of users
+ */
 server.delete("/users/:usrId/unregister", (req, res) => {
   const { usrId } = req.params;
   const usrToRemoveIndex = users.findIndex((usr) => usr.id == usrId);
@@ -369,7 +425,8 @@ server.use((err, req, res, next) => {
 });
 
 /**
- * Starting server
+ * Server listening on port number PORT
+ * @param {number} PORT the port number
  */
 server.listen(PORT, () => {
   console.log("Server running on port 8080 🤙 ");
