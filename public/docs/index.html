@@ -6,7 +6,6 @@
     <title>Documentation | MovieAPI</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="" />
     <link rel="shortcut icon" href="./favicon.png" type="image/x-icon" />
     <link
       rel="stylesheet"
@@ -121,8 +120,8 @@
                       containing description, genre, director, image Url, if
                       featured or not.<br />Example:<br />
                       <!-- prettier-ignore-start -->
-                      <code>
-                        <pre>
+                      <pre>
+                        <code>
 {
   "ID": "1",
   "Title": "The Departed",
@@ -140,9 +139,8 @@
     "Death": null
   }
 }
-                        </pre>
-                      </code>
-                      <!-- prettier-ignore-end -->
+                        </code>
+                      </pre>
                     </td>
                   </tr>
                   <tr>
@@ -156,14 +154,14 @@
                     <td>
                       A JSON object holding the drescription of the genre.<br />
                       Example:
-                      <code>
-                        <pre>
+                      <pre>
+                        <code>
   {
     "Name": "thriller",
     "Description":"the description of this genre"
   }
-                        </pre>
-                      </code>
+                        </code>
+                      </pre>
                     </td>
                   </tr>
                   <tr>
@@ -173,34 +171,34 @@
                     <td>
                       A JSON object holding data about the new user.<br />
                       Example:
-                      <code>
-                        <pre>
+                      <pre>
+                        <code>
 {
   Username: "creelester",
   Password: "badpassword123",
   Email: "creelester@email.com",
-  Birthday: "1988-04-14T07:00:00.000Z",
+  Birthday: "04-14-1988",
   FavoriteMovies: ["1"],
 }
-                        </pre>
-                      </code>
+                        </code>
+                      </pre>
                     </td>
                     <td>
                       A JSON object holding the data of the new added user,
                       including a generated unique id.<br />
                       Example:
-                      <code>
-                        <pre>
+                      <pre>
+                        <code>
 {
   ID: "1",
   Username: "creelester",
   Password: "badpassword123",
   Email: "creelester@email.com",
-  Birthday: "1988-04-14T07:00:00.000Z",
+  Birthday: "04-14-1988",
   FavoriteMovies: ["1"],
 }
-                        </pre>
-                      </code>
+                        </code>
+                      </pre>
                     </td>
                   </tr>
                   <tr>
@@ -217,8 +215,8 @@
                       Example: for the request with URL
                       /users/1/username/michiyoyo the following response will be
                       returned:
-                      <code>
-                        <pre>
+                      <pre>
+                        <code>
 {
   ID: "1",
   Username: "michiyoyo",
@@ -227,8 +225,9 @@
   Birthday: "1988-04-14T07:00:00.000Z",
   FavoriteMovies: ["1"],
 }
-                        </pre>
-                      </code>
+                        </code>
+                      </pre>
+                      <!-- prettier-ignore-end -->
                     </td>
                   </tr>
                   <tr>
@@ -247,7 +246,7 @@
                     <td>
                       Allow users to remove a movie from their list of favorites
                     </td>
-                    <td>/users/[id]/favorites/[movieToRemoveTitle]</td>
+                    <td>/users/[id]/favorites/[movieToRemoveId]</td>
                     <td>DELETE</td>
                     <td>None</td>
                     <td>

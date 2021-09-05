@@ -149,8 +149,8 @@ let users = [
     Username: "creelester",
     Password: "badpassword123",
     Email: "creelester@email.com",
-    Birthday: "1988-04-14T07:00:00.000Z",
-    FavoriteMovies: ["1"],
+    Birthday: "04-14-1988",
+    FavoriteMovies: ["2"],
     id: "1",
   },
 ];
@@ -186,7 +186,7 @@ server.get("/movies/:title", (req, res) => {
   } else {
     return res
       .status(404)
-      .send(`We don't have that movie, sorry about that! 😿`);
+      .send(`Not Found: We don't have that movie, sorry about that! 😿`);
   }
 });
 
@@ -196,12 +196,28 @@ server.get("/genres/:genre", (req, res) => {
   if (genretoFind) {
     return res.status(200).json(genretoFind);
   } else {
-    return res.status(404).send(`I couldn't find that genre, sorry. ☹️`);
+    return res
+      .status(404)
+      .send(`Not Found: I couldn't find that genre, sorry. ☹️`);
   }
 });
 
 server.get("/users", (req, res) => {
   res.status(200).json(users);
+});
+
+server.get("/users/:id/favorites", (req, res) => {
+  const { id } = req.params;
+  const usrToFind = users.find((usr) => usr.id == id);
+  if (!usrToFind) {
+    return res
+      .status(404)
+      .send(`Not Found: The user with id ${id} doesn't exist. 🙅 `);
+  } else {
+    return res.status(200).json({
+      favoriteMovieIDs: usrToFind.FavoriteMovies,
+    });
+  }
 });
 
 //Adding records
@@ -265,6 +281,41 @@ server.put("/users/:id/:infoToUpdate/:newValue", (req, res) => {
     return res
       .status(404)
       .send(`Not Found: The user with id ${id} doesn't exist. 🙅 `);
+  }
+});
+
+server.patch("/users/:id/favorites/:newFavMovieId", (req, res) => {
+  const { id, newFavMovieId } = req.params;
+  const usrToUpdate = users.find((usr) => usr.id == id);
+  if (!usrToUpdate) {
+    return res
+      .status(404)
+      .send(`Not Found: The user with id ${id} doesn't exist. 🙅 `);
+  } else {
+    const movieToAdd = topMovies.find((mov) => mov.id == newFavMovieId);
+    if (!movieToAdd) {
+      return res
+        .status(404)
+        .send(`Not Found: We don't have a movie with id ${newFavMovieId}. 🙅 `);
+    } else {
+      if (
+        usrToUpdate.FavoriteMovies.findIndex(
+          (movId) => movId == newFavMovieId
+        ) > -1
+      ) {
+        return res
+          .status(403)
+          .send(
+            `Operation Forbidden: The movie with id ${newFavMovieId} is already in this list of favorites. 🤷`
+          );
+      }
+      usrToUpdate.FavoriteMovies.push(newFavMovieId);
+      return res
+        .status(201)
+        .send(
+          `The movie with id ${newFavMovieId} has been successfully added! 👏`
+        );
+    }
   }
 });
 
