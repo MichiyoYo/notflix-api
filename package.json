@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon src/index.js"
+    "start": "nodemon src/index.js",
+    "docs": "jsdoc -c jsdoc.json"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "better-docs": "^2.3.2",
     "nodemon": "^2.0.12"
   }
 }

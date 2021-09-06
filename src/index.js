@@ -1,6 +1,6 @@
 /**
- * @fileOverview Server application where API endpoints are defined
- * @author <a href="mailto:cristina.deelester@gmail.com" target="_blank">Cristina Lester</a>
+ * @fileOverview Server application where API endpoints are defined.
+ * @author Cristina Lester
  * @version 1.0.0
  */
 
@@ -18,7 +18,7 @@ server.use(morgan("common"));
  * @type {number}
  * @constant
  */
-const PORT = 8080;
+const PORT = 8888;
 
 /**
  * The array topMovies holds 10 top movies with their properties
@@ -248,7 +248,7 @@ server.get("/users/:usrId/favorites", (req, res) => {
 
 /**
  * This endpoint adds a new user.
- * The new user info are sent in the body of the request as a JSON object in the format.
+ * The new user info are sent in the body of the request as a JSON object in the format:
  * {
  *   Username: "creelester",
  *   Password: "badpassword123",
@@ -429,6 +429,6 @@ server.use((err, req, res, next) => {
  * Server listening on port number PORT
  * @param {number} PORT the port number
  */
-server.listen(PORT, () => {
-  console.log("Server running on port 8080 🤙 ");
+server.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server running on port ${PORT} 🤙 `);
 });
