@@ -9,3 +9,23 @@ main {
 footer {
   padding: 30px;
 }
+pre {
+  background: #11203a;
+  color: teal;
+  padding: 10px 20px;
+  width: 600px;
+  max-width: 600px;
+  overflow-x: scroll;
+  margin-top: 10px;
+}
+code {
+  font-weight: 500;
+}
+.url {
+  color: rgb(117, 4, 247);
+  font-weight: 500;
+}
+.method {
+  color: #e91e63;
+  font-weight: 500;
+}

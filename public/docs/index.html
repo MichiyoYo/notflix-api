@@ -76,7 +76,7 @@
                   </li>
                   <li>
                     Allow users to view more information about different movies,
-                    such as the release date andthe movie rating
+                    such as the release date and the movie rating
                   </li>
                   <li>
                     Allow users to create a “To Watch” list in addition to their
@@ -100,85 +100,180 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Return a list of all movies to the user</td>
-                    <td>/movies</td>
-                    <td>GET</td>
+                    <td>Return a list of all movies to the user.</td>
+                    <td class="url">/movies</td>
+                    <td class="method">GET</td>
                     <td>None</td>
-                    <td>A JSON holding the data about all the movies</td>
+                    <td>A JSON holding the data about all the movies.</td>
                   </tr>
                   <tr>
                     <td>
-                      Return data (description, genre, director, image URL,
-                      whether it’s featured or not) about a single movie by
-                      title to the user
+                      Return data about a single movie by title to the user.
                     </td>
-                    <td>/movies/[title]</td>
-                    <td>GET</td>
+                    <td class="url">/movies/[title]</td>
+                    <td class="method">GET</td>
                     <td>None</td>
                     <td>
                       A JSON object holding the data about a single movie,
                       containing description, genre, director, image Url, if
-                      featured or not.<br />Example:<br />
+                      featured or not.<br />Example: for the request with URL
+                      <code>/movies/The%20Departed</code> the following response
+                      will be returned: <br />
                       <!-- prettier-ignore-start -->
                       <pre>
                         <code>
 {
-  "ID": "1",
-  "Title": "The Departed",
-  "Description": "An undercover cop and a mole in the...",
-  "ImagePath": "theDeparted.jpg",
-  "Featured": true,
-  "Genre": {
-    "Name": "Crime",
-    "Description": "Crime films, in the broadest sense, is a film genre inspired by and analogous ..."
+  "_id" : ObjectId("6138df5bc6e139efe0c91c9b"),
+  "Title" : "The Departed",
+  "Description" : "An undercover cop and a mole in the police attempt to identify each other while infiltrating an Irish gang in South Boston.",
+  "ImagePath" : "the-departed.jpg",
+  "Featured" : false,
+  "ReleaseDate" : ISODate("2006-10-06T00:00:00Z"),
+  "Rating" : 3,
+  "Genre" : {
+          "Name" : "Crime",
+          "Description" : "Crime films, in the broadest sense, is a film genre inspired by and analogous to the crime fiction literary genre. Films of this genre generally involve various aspects of crime and its detection. Stylistically, the genre may overlap and combine with many other genres, such as drama or gangster film, but also include comedy, and, in turn, is divided into many sub-genres, such as mystery, suspense or noir."
   },
-  "Director": {
-    "Name": "Martin Scorsese",
-    "Bio": "Martin Charles Scorsese was born on November 17, 1942 in Queens, New York City, to Catherine Scorsese (nee Cappa) and Charles Scorsese...",
-    "Birth": "1942",
-    "Death": null
-  }
+  "Director" : {
+          "Name" : "Martin Scorsese",
+          "Bio" : "Martin Charles Scorsese was born on November 17, 1942 in Queens, New York City, to Catherine Scorsese (nee Cappa) and Charles Scorsese, who both worked in Manhattan's garment district, and whose families both came from Palermo, Sicily. He was raised in the neighborhood of Little Italy which later provided the inspiration for several of his films. Scorsese earned a B.S. degree in film communications in 1964, followed by an M.A. in the same field in 1966 at New York University's School of Film. During this time, he made numerous prize-winning short films including The Big Shave (1967), and directed his first feature film, Who's That Knocking at My Door (1967).",
+          "BirthDate" : ISODate("1942-11-17T00:00:00Z"),
+          "DeathDate" : null
+  },
+  "Cast" : [
+          ObjectId("6138c7a50655e869000caf89"),
+          ObjectId("6138c7a50655e869000caf8a"),
+          ObjectId("6138c7a50655e869000caf8b")
+  ]
 }
                         </code>
                       </pre>
                     </td>
                   </tr>
                   <tr>
-                    <td>
-                      Return data about a genre (description) by name/title
-                      (e.g., “Thriller”)
-                    </td>
-                    <td>/genres/[genre]</td>
-                    <td>GET</td>
+                    <td>Return info about a genre by name.</td>
+                    <td class="url">/genres/[genre]</td>
+                    <td class="method">GET</td>
                     <td>None</td>
                     <td>
                       A JSON object holding the drescription of the genre.<br />
-                      Example:
+                      Example: for the request with URL
+                      <code>/genres/Thriller</code> the following response will
+                      be returned:
                       <pre>
                         <code>
-  {
-    "Name": "thriller",
-    "Description":"the description of this genre"
-  }
+{
+  "_id" : ObjectId("613935866068362726b73188"),
+  "Name" : "Thriller",
+  "Description" : "Thriller film, also known as suspense film or suspense thriller, is a broad film genre that involves excitement and suspense in the audience. Tension is created by delaying what the audience sees as inevitable, and is built through situations that are menacing or where escape seems impossible."
+}
                         </code>
                       </pre>
                     </td>
                   </tr>
+
                   <tr>
-                    <td>Allow new users to register</td>
-                    <td>/register</td>
-                    <td>POST</td>
+                    <td>Return data about a director by name.</td>
+                    <td class="url">/directors/[name]</td>
+                    <td class="method">GET</td>
+                    <td>None</td>
+                    <td>
+                      A JSON object holding the info about the director.<br />
+                      Example: for the request with URL
+                      <code>/directors/Steven%20Spielberg</code> the following
+                      response will be returned:
+                      <pre>
+                        <code>
+{
+  "_id" : ObjectId("6138c4f00655e869000caf85"),
+  "Name" : "Steven Spielberg",
+  "Bio" : "Steven Allan Spielberg was born in 1946 in Cincinnati, Ohio, to Leah Frances (Posner), a concert pianist and restaurateur, and 
+Arnold Spielberg, an electrical engineer who worked in computer development. His parents were both born to Russian Jewish immigrant families. Steven spent his younger years in Haddon Township, New Jersey, Phoenix, Arizona, and later Saratoga, California. He went to California State University Long Beach, but dropped out to pursue his entertainment career.",
+  "BirthDate" : ISODate("1946-12-18T00:00:00Z"),
+  "DeathDate" : null,
+  "Filmography" : [
+          ObjectId("6138df5bc6e139efe0c91c9e"),
+          ObjectId("6138df5bc6e139efe0c91ca0")
+  ]
+}
+                        </code>
+                      </pre>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      Allow users to see which actors star in which movies.
+                    </td>
+                    <td class="url">/movies/[movieId]/actors</td>
+                    <td class="method">GET</td>
+                    <td>None</td>
+                    <td>
+                      A JSON object holding the list of actors that star in the
+                      movie with ID <code>movieId</code>.<br />
+                      Example: for the request with URL
+                      <code>/movies/6138df5bc6e139efe0c91c9c/actors</code> the
+                      following response will be returned, where the IDs are
+                      references to the actors' primary keys:
+                      <pre>
+                        <code>
+{
+  "Cast" : [
+    ObjectId("6138c7a50655e869000caf8c"),
+    ObjectId("6138c7a50655e869000caf8d"),
+    ObjectId("6138c7a50655e869000caf96")
+  ]
+}
+                        </code>
+                      </pre>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      Allow users to view information about different actors.
+                    </td>
+                    <td class="url">/actors/[actorName]/</td>
+                    <td class="method">GET</td>
+                    <td>None</td>
+                    <td>
+                      A JSON object holding the info about the actor with name
+                      <code>actorName</code>.<br />
+                      Example: for the request with URL
+                      <code>/actor/Anthony%20Hopkins</code> the following
+                      response will be returned:
+                      <pre>
+                        <code>
+{
+  "_id" : ObjectId("6138c7a50655e869000caf87"),
+  "Name" : "Anthony Hopkins",
+  "Bio" : "Sir Philip Anthony Hopkins CBE is a Welsh actor, film director, and film producer. He has received many accolades, including two Academy Awards, four BAFTAs, two Emmys, the Cecil B. DeMille Award and a British Academy Television Award. In 1993, he was knighted by Queen Elizabeth II for services to the arts.",
+  "Filmography" : [
+          ObjectId("6138df5bc6e139efe0c91c9a")
+  ]
+}
+                        </code>
+                      </pre>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Allow new users to register.</td>
+                    <td class="url">/register</td>
+                    <td class="method">POST</td>
                     <td>
                       A JSON object holding data about the new user.<br />
                       Example:
                       <pre>
                         <code>
 {
-  Username: "creelester",
-  Password: "badpassword123",
-  Email: "creelester@email.com",
-  Birthday: "04-14-1988",
-  FavoriteMovies: ["1"],
+  "Username" : "mochi",
+  "Password" : "ihatedogs",
+  "Name" : "Mochi Abigail Lester",
+  "Email" : "mochithecat@meow.com",
+  "BirthDate" : new Date("2018-11-15"),
+  "FavoriteMovies" : [],
+  "WatchList" : []
 }
                         </code>
                       </pre>
@@ -190,12 +285,14 @@
                       <pre>
                         <code>
 {
-  ID: "1",
-  Username: "creelester",
-  Password: "badpassword123",
-  Email: "creelester@email.com",
-  Birthday: "04-14-1988",
-  FavoriteMovies: ["1"],
+  "_id" : ObjectId("6138f25dc6e139efe0c91ca6"),
+  "Username" : "mochi",
+  "Password" : "ihatedogs",
+  "Name" : "Mochi Abigail Lester",
+  "Email" : "mochithecat@meow.com",
+  "BirthDate" : new Date("2018-11-15"),
+  "FavoriteMovies" : [],
+  "WatchList" : []
 }
                         </code>
                       </pre>
@@ -204,26 +301,40 @@
                   <tr>
                     <td>
                       Allow users to update their user info (username, password,
-                      email, date of birth)
+                      email, date of birth).
                     </td>
-                    <td>/users/[usrId]/[infoToUpdate]/[newValue]</td>
-                    <td>PUT</td>
+                    <td class="url">
+                      /users/[usrId]/[infoToUpdate]/[newValue]
+                    </td>
+                    <td class="method">PUT</td>
                     <td>None</td>
                     <td>
                       A JSON object holding the data of the user, including the
                       updated username.<br />
                       Example: for the request with URL
-                      /users/1/username/michiyoyo the following response will be
-                      returned:
+                      <code
+                        >/users/6138f25dc6e139efe0c91ca4/username/michiyoyo</code
+                      >
+                      the following response will be returned:
                       <pre>
                         <code>
 {
-  ID: "1",
-  Username: "michiyoyo",
-  Password: "badpassword123",
-  Email: "creelester@email.com",
-  Birthday: "1988-04-14T07:00:00.000Z",
-  FavoriteMovies: ["1"],
+  "_id" : ObjectId("6138f25dc6e139efe0c91ca4"),
+  "Username" : "michiyoyo",
+  "Password" : "b4dr3qu357",
+  "Name" : "Cristina Lester",
+  "Email" : "cree.lester@outlook.com",
+  "BirthDate" : ISODate("1988-04-14T00:00:00Z"),
+  "FavoriteMovies" : [
+          ObjectId("6138df5bc6e139efe0c91c9c"),
+          ObjectId("6138df5bc6e139efe0c91c9d"),
+          ObjectId("6138df5bc6e139efe0c91c9e"),
+          ObjectId("6138df5bc6e139efe0c91ca2")
+  ],
+  "WatchList" : [
+          ObjectId("6138df5bc6e139efe0c91c9f"),
+          ObjectId("6138df5bc6e139efe0c91ca3")
+  ]
 }
                         </code>
                       </pre>
@@ -232,10 +343,12 @@
                   </tr>
                   <tr>
                     <td>
-                      Allow users to add a movie to their list of favorites
+                      Allow users to add a movie to their list of favorites.
                     </td>
-                    <td>/users/[usrId]/favorites/[newFavMovieId]</td>
-                    <td>PATCH</td>
+                    <td class="url">
+                      /users/[usrId]/favorites/[newFavMovieId]
+                    </td>
+                    <td class="method">PUT</td>
                     <td>None</td>
                     <td>
                       A message indicating that the movie has been successfully
@@ -243,11 +356,24 @@
                     </td>
                   </tr>
                   <tr>
+                    <td>Allow users to add a movie to their Watch List.</td>
+                    <td class="url">/users/[usrId]/watchlist/[newMovieId]</td>
+                    <td class="method">PUT</td>
+                    <td>None</td>
                     <td>
-                      Allow users to remove a movie from their list of favorites
+                      A message indicating that the movie has been successfully
+                      added to the list of the user's watch list.
                     </td>
-                    <td>/users/[usrId]/favorites/[movieToRemoveId]</td>
-                    <td>DELETE</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Allow users to remove a movie from their list of
+                      favorites.
+                    </td>
+                    <td class="url">
+                      /users/[usrId]/favorites/[movieToRemoveId]
+                    </td>
+                    <td class="method">DELETE</td>
                     <td>None</td>
                     <td>
                       A message indicating that the movie has been successfully
@@ -255,9 +381,9 @@
                     </td>
                   </tr>
                   <tr>
-                    <td>Allow existing users to deregister</td>
-                    <td>/users/[usrId]/unregister</td>
-                    <td>DELETE</td>
+                    <td>Allow existing users to deregister.</td>
+                    <td class="url">users/[usrId]/unregister</td>
+                    <td class="method">DELETE</td>
                     <td>None</td>
                     <td>
                       A message indicating that the user has been successfully
