@@ -6,7 +6,7 @@
 
 const express = require("express"),
   morgan = require("morgan"),
-  uuid = require("uuid");
+  uuid = require("uuid"),;
 
 const server = express();
 //not using body-parser because it's deprecated
