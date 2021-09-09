@@ -301,37 +301,41 @@ Arnold Spielberg, an electrical engineer who worked in computer development. His
                       Allow users to update their user info (username, password,
                       email, date of birth).
                     </td>
-                    <td class="url">
-                      /users/[usrId]/[infoToUpdate]/[newValue]
-                    </td>
+                    <td class="url">/users/[username]</td>
                     <td class="method">PUT</td>
-                    <td>None</td>
                     <td>
-                      A JSON object holding the data of the user, including the
-                      updated username.<br />
-                      Example: for the request with URL
-                      <code
-                        >/users/6138f25dc6e139efe0c91ca4/username/michiyoyo</code
-                      >
-                      the following response will be returned:
+                      A JSON object holding the data to be updated.<br />
+                      Example: Updating password and email address of the
+                      users"mochi" by sending the URL <code>/users/mochi</code>
+                      <pre>
+                          <code>
+{
+  "Password" : "dogsAreNotThatBad",
+  "Email" : "fishNchips@meow.com",
+}
+                          </code>
+                        </pre>
+                    </td>
+                    <td>
+                      A JSON object holding the data of the user, included the
+                      updated field.<br />
+                      Example:
                       <pre>
                         <code>
 {
-  "_id" : ObjectId("6138f25dc6e139efe0c91ca4"),
-  "Username" : "michiyoyo",
-  "Password" : "b4dr3qu357",
-  "Name" : "Cristina Lester",
-  "Email" : "cree.lester@outlook.com",
-  "BirthDate" : ISODate("1988-04-14T00:00:00Z"),
+  "_id" : ObjectId("6138f25dc6e139efe0c91ca6"),
+  "Username" : "mochi",
+  "Password" : "dogsAreNotThatBad",
+  "Name" : "Mochi Abigail Lester",
+  "Email" : "fishNchips@meow.com",
+  "BirthDate" : ISODate("2018-11-15T00:00:00Z"),
   "FavoriteMovies" : [
-          ObjectId("6138df5bc6e139efe0c91c9c"),
-          ObjectId("6138df5bc6e139efe0c91c9d"),
-          ObjectId("6138df5bc6e139efe0c91c9e"),
-          ObjectId("6138df5bc6e139efe0c91ca2")
+          ObjectId("6138df5bc6e139efe0c91ca1"),
+          ObjectId("6138df5bc6e139efe0c91ca0")
   ],
   "WatchList" : [
-          ObjectId("6138df5bc6e139efe0c91c9f"),
-          ObjectId("6138df5bc6e139efe0c91ca3")
+          ObjectId("6138df5bc6e139efe0c91c9e"),
+          ObjectId("6138df5bc6e139efe0c91c9d")
   ]
 }
                         </code>
@@ -344,7 +348,7 @@ Arnold Spielberg, an electrical engineer who worked in computer development. His
                       Allow users to add a movie to their list of favorites.
                     </td>
                     <td class="url">
-                      /users/[usrId]/favorites/[newFavMovieId]
+                      /users/[username]/favorites/[newFavMovieId]
                     </td>
                     <td class="method">PUT</td>
                     <td>None</td>
@@ -355,7 +359,9 @@ Arnold Spielberg, an electrical engineer who worked in computer development. His
                   </tr>
                   <tr>
                     <td>Allow users to add a movie to their Watch List.</td>
-                    <td class="url">/users/[usrId]/watchlist/[newMovieId]</td>
+                    <td class="url">
+                      /users/[username]/watchlist/[newMovieId]
+                    </td>
                     <td class="method">PUT</td>
                     <td>None</td>
                     <td>
@@ -369,7 +375,7 @@ Arnold Spielberg, an electrical engineer who worked in computer development. His
                       favorites.
                     </td>
                     <td class="url">
-                      /users/[usrId]/favorites/[movieToRemoveId]
+                      /users/[username]/favorites/[movieToRemoveId]
                     </td>
                     <td class="method">DELETE</td>
                     <td>None</td>
@@ -379,13 +385,25 @@ Arnold Spielberg, an electrical engineer who worked in computer development. His
                     </td>
                   </tr>
                   <tr>
+                    <td>Allow users to remove a movie from their watchlist.</td>
+                    <td class="url">
+                      /users/[username]/watchlist/[movieToRemoveId]
+                    </td>
+                    <td class="method">DELETE</td>
+                    <td>None</td>
+                    <td>
+                      A message indicating that the movie has been successfully
+                      removed from the user's watchlist.
+                    </td>
+                  </tr>
+                  <tr>
                     <td>Allow existing users to deregister.</td>
-                    <td class="url">users/[usrId]/unregister</td>
+                    <td class="url">users/[username]/deregister</td>
                     <td class="method">DELETE</td>
                     <td>None</td>
                     <td>
                       A message indicating that the user has been successfully
-                      unregistered.
+                      deregister.
                     </td>
                   </tr>
                 </tbody>

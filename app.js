@@ -9,6 +9,7 @@ const express = require("express"),
   uuid = require("uuid"),
   mongoose = require("mongoose"),
   Models = require("./models/models.js");
+const { update } = require("lodash");
 //const bodyParser = require("body-parser");
 
 const server = express();
@@ -65,15 +66,32 @@ server.get("/users", (req, res) => {
     })
     .catch((err) => {
       console.error(err);
-      res.status(500).send("Oh no! Something went wrong! 🙀");
+      res.status(500).send(`
+      Oh no! Something went wrong! 🙀
+      Error: ${err}
+      `);
     });
 });
 
 server.get("/movies/:movieTitle", (req, res) => {
   const { movieTitle } = req.params;
-  Movies.find({ Title: `${movieTitle}` }, (err, movies) => {
-    res.status(200).json(movies);
-  });
+  Movies.findOne({ Title: movieTitle })
+    .then((movie) => {
+      if (movie) {
+        res.status(200).json(movie);
+      } else {
+        res
+          .status(404)
+          .send("Sorry, we don't have that movie in our database! 🤷");
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send(`
+      Oh no! Something went wrong! 🙀
+      Error: ${err}
+      `);
+    });
 });
 
 server.post("/register", (req, res) => {
@@ -81,7 +99,7 @@ server.post("/register", (req, res) => {
     password = req.body.Password,
     name = req.body.Name,
     email = req.body.Email,
-    birthday = req.body.Birthday;
+    birthDate = req.body.BirthDate;
 
   Users.findOne({ Username: username })
     .then((user) => {
@@ -95,24 +113,137 @@ server.post("/register", (req, res) => {
           Password: password,
           Name: name,
           Email: email,
-          Birthday: new Date(birthday),
+          BirthDate: new Date(birthDate),
         })
           .then((user) => {
             res.status(201).json(user);
           })
           .catch((error) => {
             console.error(error);
-            res
-              .status(500)
-              .send("Internal server error: Something went wrong 😿 ");
+            res.status(500).send(`
+              Oh no! Something went wrong! 🙀
+              Error: ${err}
+              `);
           });
       }
     })
     .catch((err) => {
       console.error(err);
+      res.status(500).send(`
+        Everything broke, it's your fault! 😫 JK, it's not.
+        This is what actually happened: ${err}
+        `);
+    });
+});
+
+//update user info
+server.put("/users/:username", (req, res) => {
+  const { username } = req.params;
+  Users.findOneAndUpdate(
+    { Username: username },
+    {
+      $set: {
+        Username: req.body.Username,
+        Password: req.body.Password,
+        Name: req.body.Name,
+        Email: req.body.Email,
+        BirthDate: req.body.BirthDate,
+      },
+    },
+    { new: true, upsert: true }
+  )
+    .then((updatedUser) => {
+      if (updatedUser) {
+        res.status(200).json(updatedUser);
+      } else {
+        res
+          .status(404)
+          .send("Sorry, we don't have that user in our database! 🤷");
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send(`
+          Oh no! Something went wrong! 🙀
+          Error: ${err}
+        `);
+    });
+});
+
+//add movie to user's list of favorites
+server.post("/users/:username/favorites/:movieId", (req, res) => {
+  const { username, movieId } = req.params;
+  Users.findOneAndUpdate(
+    { Username: username },
+    {
+      $addToSet: {
+        FavoriteMovies: movieId,
+      },
+    },
+    { new: true }
+  )
+    .then((updatedUser) => {
       res
-        .status(500)
-        .send("Everything broke, it's your fault! 😫 JK, it's not.");
+        .status(200)
+        .send(
+          `The movie has been successfully added to ${username}'s list of favorites!`
+        );
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send(`
+      Something happened and it's not a good thing. 😱
+      Error: ${err}
+      `);
+    });
+});
+
+//remove movie to user's list of favorites
+server.delete("/users/:username/favorites/:movieId", (req, res) => {
+  const { username, movieId } = req.params;
+  Users.findOneAndUpdate(
+    { Username: username },
+    {
+      $pull: {
+        FavoriteMovies: movieId,
+      },
+    },
+    { new: true }
+  )
+    .then((updatedUser) => {
+      res
+        .status(200)
+        .send(
+          `The movie has been successfully removed from ${username}'s list of favorites! 👌`
+        );
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send(`
+      Something happened and it's not a good thing. 😱
+      Error: ${err}
+      `);
+    });
+});
+
+server.delete("/users/:username/deregister", (req, res) => {
+  const { username } = req.params;
+  Users.findOneAndRemove({ Username: username })
+    .then((usrtoRemove) => {
+      if (!usrtoRemove) {
+        res.status(404).send(`The user ${username} doesn't exist. 🤷`);
+      } else {
+        res
+          .status(200)
+          .send(`The user ${username} was successfully deregistered. 👋`);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send(`
+      Something happened and it's not a good thing. 😱
+      Error: ${err}
+      `);
     });
 });
 
