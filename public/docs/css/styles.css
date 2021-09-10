@@ -15,7 +15,8 @@ pre {
   padding: 10px 20px;
   width: 600px;
   max-width: 600px;
-  overflow-x: scroll;
+  max-height: 400px;
+  overflow: scroll;
   margin-top: 10px;
 }
 code {

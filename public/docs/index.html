@@ -107,6 +107,34 @@
                     <td>A JSON holding the data about all the movies.</td>
                   </tr>
                   <tr>
+                    <td>Return a list of all users to the user.</td>
+                    <td class="url">/users</td>
+                    <td class="method">GET</td>
+                    <td>None</td>
+                    <td>A JSON holding the data about all the users.</td>
+                  </tr>
+                  <tr>
+                    <td>Return a list of all genres to the user.</td>
+                    <td class="url">/genres</td>
+                    <td class="method">GET</td>
+                    <td>None</td>
+                    <td>A JSON holding the data about all the genres.</td>
+                  </tr>
+                  <tr>
+                    <td>Return a list of all directors to the user.</td>
+                    <td class="url">/directors</td>
+                    <td class="method">GET</td>
+                    <td>None</td>
+                    <td>A JSON holding the data about all the directors.</td>
+                  </tr>
+                  <tr>
+                    <td>Return a list of all actors to the user.</td>
+                    <td class="url">/actors</td>
+                    <td class="method">GET</td>
+                    <td>None</td>
+                    <td>A JSON holding the data about all the actors.</td>
+                  </tr>
+                  <tr>
                     <td>
                       Return data about a single movie by title to the user.
                     </td>
@@ -114,37 +142,93 @@
                     <td class="method">GET</td>
                     <td>None</td>
                     <td>
-                      A JSON object holding the data about a single movie,
-                      containing description, genre, director, image Url, if
-                      featured or not.<br />Example: for the request with URL
-                      <code>/movies/The%20Departed</code> the following response
-                      will be returned: <br />
+                      A JSON object holding the data about a single movie.<br />Example:
+                      for the request with URL <code>/movies/Parasite</code> the
+                      following response will be returned: <br />
                       <!-- prettier-ignore-start -->
                       <pre>
                         <code>
 {
-  "_id" : ObjectId("6138df5bc6e139efe0c91c9b"),
-  "Title" : "The Departed",
-  "Description" : "An undercover cop and a mole in the police attempt to identify each other while infiltrating an Irish gang in South Boston.",
-  "ImagePath" : "the-departed.jpg",
-  "Featured" : false,
-  "ReleaseDate" : ISODate("2006-10-06T00:00:00Z"),
-  "Rating" : 3,
-  "Genre" : {
-          "Name" : "Crime",
-          "Description" : "Crime films, in the broadest sense, is a film genre inspired by and analogous to the crime fiction literary genre. Films of this genre generally involve various aspects of crime and its detection. Stylistically, the genre may overlap and combine with many other genres, such as drama or gangster film, but also include comedy, and, in turn, is divided into many sub-genres, such as mystery, suspense or noir."
+  "Genre": {
+      "Name": "Drama",
+      "Description": "In film and television, drama is a category of narrative fiction (or semi-fiction) intended to be more serious than humorous in tone.[1] Drama of this kind is usually qualified with additional terms that specify its particular super-genre, macro-genre, or micro-genre,[2] such as soap opera (operatic drama), police crime drama, political drama, legal drama, historical drama, domestic drama, teen drama, and comedy-drama (dramedy). These terms tend to indicate a particular setting or subject-matter, or else they qualify the otherwise serious tone of a drama with elements that encourage a broader range of moods."
   },
-  "Director" : {
-          "Name" : "Martin Scorsese",
-          "Bio" : "Martin Charles Scorsese was born on November 17, 1942 in Queens, New York City, to Catherine Scorsese (nee Cappa) and Charles Scorsese, who both worked in Manhattan's garment district, and whose families both came from Palermo, Sicily. He was raised in the neighborhood of Little Italy which later provided the inspiration for several of his films. Scorsese earned a B.S. degree in film communications in 1964, followed by an M.A. in the same field in 1966 at New York University's School of Film. During this time, he made numerous prize-winning short films including The Big Shave (1967), and directed his first feature film, Who's That Knocking at My Door (1967).",
-          "BirthDate" : ISODate("1942-11-17T00:00:00Z"),
-          "DeathDate" : null
+  "Director": {
+      "Name": "Bong Joon Ho",
+      "Bio": "Bong Joon Ho was born on September 14, 1969 in Daegu, South Korea. He is a writer and producer, known for Snowpiercer (2013), Okja (2017) and Parasite (2019).",
+      "BirthDate": "1969-07-14T00:00:00.000Z",
+      "DeathDate": null
   },
-  "Cast" : [
-          ObjectId("6138c7a50655e869000caf89"),
-          ObjectId("6138c7a50655e869000caf8a"),
-          ObjectId("6138c7a50655e869000caf8b")
+  "_id": "6138df5bc6e139efe0c91c9f",
+  "Title": "Parasite",
+  "Description": "Greed and class discrimination threaten the newly formed symbiotic relationship between the wealthy Park family and the destitute Kim clan.",
+  "ImagePath": "parasite.jpg",
+  "Featured": false,
+  "ReleaseDate": "2019-05-30T00:00:00.000Z",
+  "Rating": 5,
+  "Cast": [
+      {
+          "_id": "6138c7a50655e869000caf90",
+          "Name": "Park Seo-Joon"
+      },
+      {
+          "_id": "6138c7a50655e869000caf91",
+          "Name": "Kang-Ho Song"
+      }
   ]
+}
+                        </code>
+                      </pre>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Return info about a user by username.</td>
+                    <td class="url">/users/[username]</td>
+                    <td class="method">GET</td>
+                    <td>None</td>
+                    <td>
+                      A JSON object holding the info about the user.<br />
+                      Example: for the request with URL
+                      <code>/users/mochi</code> the following response will be
+                      returned:
+                      <pre>
+                        <code>
+  {
+    "_id": "6138f25dc6e139efe0c91ca6",
+    "Username": "mochi",
+    "Password": "ihatedogs",
+    "Name": "Mochi Abigail Lester",
+    "Email": "mochithecat@meow.com",
+    "BirthDate": "2018-11-15T00:00:00.000Z",
+    "FavoriteMovies": [
+        {
+            "_id": "6138df5bc6e139efe0c91ca1",
+            "Title": "Forrest Gump"
+        },
+        {
+            "_id": "6138df5bc6e139efe0c91ca0",
+            "Title": "E.T. the Extra-Terrestrial"
+        },
+        {
+            "_id": "6138df5bc6e139efe0c91c9e",
+            "Title": "Indiana Jones and the Raiders of the Lost Ark"
+        },
+        {
+            "_id": "6138df5bc6e139efe0c91c9d",
+            "Title": "Total Recall"
+        }
+    ],
+    "WatchList": [
+        {
+            "_id": "6138df5bc6e139efe0c91c9e",
+            "Title": "Indiana Jones and the Raiders of the Lost Ark"
+        },
+        {
+            "_id": "6138df5bc6e139efe0c91c9d",
+            "Title": "Total Recall"
+        }
+    ]
 }
                         </code>
                       </pre>
@@ -152,7 +236,7 @@
                   </tr>
                   <tr>
                     <td>Return info about a genre by name.</td>
-                    <td class="url">/genres/[genre]</td>
+                    <td class="url">/genres/[name]</td>
                     <td class="method">GET</td>
                     <td>None</td>
                     <td>
@@ -163,9 +247,9 @@
                       <pre>
                         <code>
 {
-  "_id" : ObjectId("613935866068362726b73188"),
-  "Name" : "Thriller",
-  "Description" : "Thriller film, also known as suspense film or suspense thriller, is a broad film genre that involves excitement and suspense in the audience. Tension is created by delaying what the audience sees as inevitable, and is built through situations that are menacing or where escape seems impossible."
+  "_id": "613935866068362726b73188",
+  "Name": "Thriller",
+  "Description": "Thriller film, also known as suspense film or suspense thriller, is a broad film genre that involves excitement and suspense in the audience. Tension is created by delaying what the audience sees as inevitable, and is built through situations that are menacing or where escape seems impossible."
 }
                         </code>
                       </pre>
@@ -185,15 +269,48 @@
                       <pre>
                         <code>
 {
-  "_id" : ObjectId("6138c4f00655e869000caf85"),
-  "Name" : "Steven Spielberg",
-  "Bio" : "Steven Allan Spielberg was born in 1946 in Cincinnati, Ohio, to Leah Frances (Posner), a concert pianist and restaurateur, and 
-Arnold Spielberg, an electrical engineer who worked in computer development. His parents were both born to Russian Jewish immigrant families. Steven spent his younger years in Haddon Township, New Jersey, Phoenix, Arizona, and later Saratoga, California. He went to California State University Long Beach, but dropped out to pursue his entertainment career.",
-  "BirthDate" : ISODate("1946-12-18T00:00:00Z"),
-  "DeathDate" : null,
-  "Filmography" : [
-          ObjectId("6138df5bc6e139efe0c91c9e"),
-          ObjectId("6138df5bc6e139efe0c91ca0")
+  "_id": "6138c4f00655e869000caf85",
+  "Name": "Steven Spielberg",
+  "Bio": "Steven Allan Spielberg was born in 1946 in Cincinnati, Ohio, to Leah Frances (Posner), a concert pianist and restaurateur, and Arnold Spielberg, an electrical engineer who worked in computer development. His parents were both born to Russian Jewish immigrant families. Steven spent his younger years in Haddon Township, New Jersey, Phoenix, Arizona, and later Saratoga, California. He went to California State University Long Beach, but dropped out to pursue his entertainment career.",
+  "BirthDate": "1946-12-18T00:00:00.000Z",
+  "DeathDate": null,
+  "Filmography": [
+      {
+          "_id": "6138df5bc6e139efe0c91c9e",
+          "Title": "Indiana Jones and the Raiders of the Lost Ark"
+      },
+      {
+          "_id": "6138df5bc6e139efe0c91ca0",
+          "Title": "E.T. the Extra-Terrestrial"
+      }
+  ]
+}
+                        </code>
+                      </pre>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Return data about an actor by name.</td>
+                    <td class="url">/actors/[name]</td>
+                    <td class="method">GET</td>
+                    <td>None</td>
+                    <td>
+                      A JSON object holding the info about the actor.<br />
+                      Example: for the request with URL
+                      <code>/actors/Leonardo%20DiCaprio</code> the following
+                      response will be returned:
+                      <pre>
+                        <code>
+{
+  "_id": "6138c7a50655e869000caf89",
+  "Name": "Leonardo DiCaprio",
+  "Bio": "Known for playing unconventional roles in biopics and period films, DiCaprio has received numerous accolades throughout his career, including an Academy Award, a British Academy Film Award, a Screen Actors Guild Award, and three Golden Globe Awards. As of 2019, his films have grossed over $7.2 billion worldwide, and he has been placed eight times in annual rankings of the world's highest-paid actors.",
+  "Filmography": [
+      {
+          "_id": "6138df5bc6e139efe0c91c9b",
+          "Title": "The Departed"
+      }
   ]
 }
                         </code>
@@ -205,24 +322,29 @@ Arnold Spielberg, an electrical engineer who worked in computer development. His
                     <td>
                       Allow users to see which actors star in which movies.
                     </td>
-                    <td class="url">/movies/[movieId]/actors</td>
+                    <td class="url">/movies/[movieTitle]/cast</td>
                     <td class="method">GET</td>
                     <td>None</td>
                     <td>
                       A JSON object holding the list of actors that star in the
-                      movie with ID <code>movieId</code>.<br />
+                      movie with title <code>movieTitle</code>.<br />
                       Example: for the request with URL
-                      <code>/movies/6138df5bc6e139efe0c91c9c/actors</code> the
-                      following response will be returned, where the IDs are
-                      references to the actors' primary keys:
+                      <code>/movies/Back%20to%20the%20future/cast</code> the
+                      following response will be returned:
                       <pre>
                         <code>
 {
-  "Cast" : [
-    ObjectId("6138c7a50655e869000caf8c"),
-    ObjectId("6138c7a50655e869000caf8d"),
-    ObjectId("6138c7a50655e869000caf96")
-  ]
+"Cast": [
+    {
+        "Name": "Michael J. Fox"
+    },
+    {
+        "Name": "Christopher Lloyd"
+    },
+    {
+        "Name": "Crispin Glover"
+    }
+]
 }
                         </code>
                       </pre>
@@ -231,25 +353,61 @@ Arnold Spielberg, an electrical engineer who worked in computer development. His
 
                   <tr>
                     <td>
-                      Allow users to view information about different actors.
+                      Allow users to retrieve the list of favorites of a user.
                     </td>
-                    <td class="url">/actors/[actorName]/</td>
+                    <td class="url">/users/[username]/favorites</td>
                     <td class="method">GET</td>
                     <td>None</td>
                     <td>
-                      A JSON object holding the info about the actor with name
-                      <code>actorName</code>.<br />
+                      A JSON object holding the list of favorite movies of the
+                      user with username <code>username</code>.<br />
                       Example: for the request with URL
-                      <code>/actor/Anthony%20Hopkins</code> the following
+                      <code>/users/cristinabanana/favorites</code> the following
                       response will be returned:
                       <pre>
                         <code>
 {
-  "_id" : ObjectId("6138c7a50655e869000caf87"),
-  "Name" : "Anthony Hopkins",
-  "Bio" : "Sir Philip Anthony Hopkins CBE is a Welsh actor, film director, and film producer. He has received many accolades, including two Academy Awards, four BAFTAs, two Emmys, the Cecil B. DeMille Award and a British Academy Television Award. In 1993, he was knighted by Queen Elizabeth II for services to the arts.",
-  "Filmography" : [
-          ObjectId("6138df5bc6e139efe0c91c9a")
+  "Favorites": [
+      {
+          "Title": "Back to the future"
+      },
+      {
+          "Title": "Total Recall"
+      },
+      {
+          "Title": "Indiana Jones and the Raiders of the Lost Ark"
+      },
+      {
+          "Title": "RoboCop"
+      }
+  ]
+}
+                        </code>
+                      </pre>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Allow users to retrieve the watch list of a user.</td>
+                    <td class="url">/users/[username]/watchlist</td>
+                    <td class="method">GET</td>
+                    <td>None</td>
+                    <td>
+                      A JSON object holding the watchlist of the user with
+                      username <code>username</code>.<br />
+                      Example: for the request with URL
+                      <code>/users/mochi/watchlist</code> the following response
+                      will be returned:
+                      <pre>
+                        <code>
+{
+  "WatchList": [
+      {
+          "Title": "Indiana Jones and the Raiders of the Lost Ark"
+      },
+      {
+          "Title": "Total Recall"
+      }
   ]
 }
                         </code>
@@ -283,7 +441,7 @@ Arnold Spielberg, an electrical engineer who worked in computer development. His
                       <pre>
                         <code>
 {
-  "_id" : ObjectId("6138f25dc6e139efe0c91ca6"),
+  "_id" : "6138f25dc6e139efe0c91ca6",
   "Username" : "mochi",
   "Password" : "ihatedogs",
   "Name" : "Mochi Abigail Lester",
@@ -347,10 +505,8 @@ Arnold Spielberg, an electrical engineer who worked in computer development. His
                     <td>
                       Allow users to add a movie to their list of favorites.
                     </td>
-                    <td class="url">
-                      /users/[username]/favorites/[newFavMovieId]
-                    </td>
-                    <td class="method">PUT</td>
+                    <td class="url">/users/[username]/favorites/[movieId]</td>
+                    <td class="method">POST</td>
                     <td>None</td>
                     <td>
                       A message indicating that the movie has been successfully
@@ -359,10 +515,8 @@ Arnold Spielberg, an electrical engineer who worked in computer development. His
                   </tr>
                   <tr>
                     <td>Allow users to add a movie to their Watch List.</td>
-                    <td class="url">
-                      /users/[username]/watchlist/[newMovieId]
-                    </td>
-                    <td class="method">PUT</td>
+                    <td class="url">/users/[username]/watchlist/[movieId]</td>
+                    <td class="method">POST</td>
                     <td>None</td>
                     <td>
                       A message indicating that the movie has been successfully
@@ -374,9 +528,7 @@ Arnold Spielberg, an electrical engineer who worked in computer development. His
                       Allow users to remove a movie from their list of
                       favorites.
                     </td>
-                    <td class="url">
-                      /users/[username]/favorites/[movieToRemoveId]
-                    </td>
+                    <td class="url">/users/[username]/favorites/[movieId]</td>
                     <td class="method">DELETE</td>
                     <td>None</td>
                     <td>
@@ -386,9 +538,7 @@ Arnold Spielberg, an electrical engineer who worked in computer development. His
                   </tr>
                   <tr>
                     <td>Allow users to remove a movie from their watchlist.</td>
-                    <td class="url">
-                      /users/[username]/watchlist/[movieToRemoveId]
-                    </td>
+                    <td class="url">/users/[username]/watchlist/[movieId]</td>
                     <td class="method">DELETE</td>
                     <td>None</td>
                     <td>
