@@ -8,7 +8,6 @@ const express = require("express"),
   morgan = require("morgan"),
   mongoose = require("mongoose"),
   Models = require("./models/models.js");
-const _ = require("lodash");
 
 const server = express();
 server.use(express.json());
@@ -32,6 +31,11 @@ mongoose.connect("mongodb://localhost:27017/NotFlixDB", {
  */
 const PORT = 8080;
 
+/**
+ * @param {number} status the error status
+ * @param {*} err the error that was catched by the calling function
+ * @returns a string containing a message about the error status
+ */
 function errorMsg(status, err) {
   let msg = "";
   switch (status) {
@@ -53,13 +57,12 @@ function errorMsg(status, err) {
       break;
     default:
       msg = `
-      Something bad happened 🙀!
+      Something bad happened and we don't know what it is 🙀!
       Error: ${err}
       `;
   }
   return msg;
 }
-//Start Business Logic
 
 /**
  * The documentation's static files are stored in the subdirectory docs under public
@@ -76,7 +79,10 @@ server.get("/", (req, res) => {
 });
 
 //General search
-
+/**
+ * Endpoint: /movies
+ * @returns A JSON holding the data about all the movies.
+ */
 server.get("/movies", async (req, res) => {
   try {
     const movies = await Movies.find().populate("Cast", "Name");
@@ -86,6 +92,10 @@ server.get("/movies", async (req, res) => {
   }
 });
 
+/**
+ * Endpoint: /users
+ * @returns A JSON holding the data about all the users.
+ */
 server.get("/users", async (req, res) => {
   try {
     const users = await Users.find()
@@ -97,6 +107,10 @@ server.get("/users", async (req, res) => {
   }
 });
 
+/**
+ * Endpoint: /genres
+ * @returns A JSON holding the data about all the genres.
+ */
 server.get("/genres", async (req, res) => {
   try {
     const genres = await Genres.find();
@@ -106,6 +120,10 @@ server.get("/genres", async (req, res) => {
   }
 });
 
+/**
+ * Endpoint: /directors
+ * @returns A JSON holding the data about all the directors.
+ */
 server.get("/directors", async (req, res) => {
   try {
     const directors = await Directors.find().populate("Filmography", "Title");
@@ -115,6 +133,10 @@ server.get("/directors", async (req, res) => {
   }
 });
 
+/**
+ * Endpoint: /actors
+ * @returns A JSON holding the data about all the actors.
+ */
 server.get("/actors", async (req, res) => {
   try {
     const actors = await Actors.find().populate("Filmography", "Title");
@@ -126,6 +148,12 @@ server.get("/actors", async (req, res) => {
 
 //Detailed search
 
+/**
+ * Endpoint: /movies/[movieTitle]
+ * @param {String} movieTite the title of the movie we are looking for (if there are spaces in the title use the metacharacter %20 as spacer)
+ * @returns A JSON object holding the data about a single movie.
+ * @example /movies/Parasite
+ */
 server.get("/movies/:movieTitle", async (req, res) => {
   const { movieTitle } = req.params;
   try {
@@ -145,6 +173,12 @@ server.get("/movies/:movieTitle", async (req, res) => {
   }
 });
 
+/**
+ * Endpoint: /users/[username]
+ * @param {String} username the username of the user we are looking for (if there are spaces in the username use the metacharacter %20 as spacer)
+ * @returns A JSON object holding the data about a single user.
+ * @example /users/mochi
+ */
 server.get("/users/:username", async (req, res) => {
   const { username } = req.params;
   try {
@@ -161,6 +195,12 @@ server.get("/users/:username", async (req, res) => {
   }
 });
 
+/**
+ * Endpoint: /genres/[name]
+ * @param {String} name the name of the genre we are looking for (if there are spaces in the username use the metacharacter %20 as spacer)
+ * @returns A JSON object holding the data about a single genre.
+ * @example /genres/Thriller
+ */
 server.get("/genres/:name", async (req, res) => {
   const { name } = req.params;
   try {
@@ -177,6 +217,12 @@ server.get("/genres/:name", async (req, res) => {
   }
 });
 
+/**
+ * Endpoint: /directors/[name]
+ * @param {String} name the name of the genre we are looking for (if there are spaces in the username use the metacharacter %20 as spacer)
+ * @returns A JSON object holding the data about a single genre.
+ * @example /directors/Steven%20Spielberg
+ */
 server.get("/directors/:name", async (req, res) => {
   const { name } = req.params;
   try {
@@ -196,6 +242,12 @@ server.get("/directors/:name", async (req, res) => {
   }
 });
 
+/**
+ * Endpoint: /actors/[name]
+ * @param {String} name the name of the actor we are looking for (if there are spaces in the username use the metacharacter %20 as spacer)
+ * @returns A JSON object holding the data about a single actor.
+ * @example /actors/Harrison%20Ford
+ */
 server.get("/actors/:name", async (req, res) => {
   const { name } = req.params;
   try {
@@ -215,6 +267,12 @@ server.get("/actors/:name", async (req, res) => {
   }
 });
 
+/**
+ * Endpoint: /movies/[movieTitle]/cast
+ * @param {String} movieTitle the title of the movie we are inquiring (if there are spaces in the username use the metacharacter %20 as spacer)
+ * @returns A JSON object holding the data about the cast of the movie.
+ * @example /movies/Parasite/cast
+ */
 server.get("/movies/:movieTitle/cast", async (req, res) => {
   const { movieTitle } = req.params;
   try {
@@ -238,6 +296,12 @@ server.get("/movies/:movieTitle/cast", async (req, res) => {
   }
 });
 
+/**
+ * Endpoint: /users/[username]/favorites
+ * @param {String} username username of the user we are inquiring (if there are spaces in the username use the metacharacter %20 as spacer)
+ * @returns A JSON object holding the data about the favorite movies of the user.
+ * @example /users/loejester/favorites
+ */
 server.get("/users/:username/favorites", async (req, res) => {
   const { username } = req.params;
   try {
@@ -261,6 +325,12 @@ server.get("/users/:username/favorites", async (req, res) => {
   }
 });
 
+/**
+ * Endpoint: /users/[username]/watchlist
+ * @param {String} username username of the user we are inquiring (if there are spaces in the username use the metacharacter %20 as spacer)
+ * @returns A JSON object holding the data about the watch list of the user.
+ * @example /users/loejester/watchlist
+ */
 server.get("/users/:username/watchlist", async (req, res) => {
   const { username } = req.params;
   try {
@@ -284,6 +354,18 @@ server.get("/users/:username/watchlist", async (req, res) => {
   }
 });
 
+/**
+ * Endpoint: /register
+ * The info of the new user must be sent in the body of the request as a JSON object in the format:
+ * {
+ *  "Username" : "mochi",
+ *  "Password" : "ihatedogs",
+ *  "Name" : "Mochi Abigail Lester",
+ *  "Email" : "mochithecat@meow.com",
+ *  "BirthDate" : new Date("2018-11-15"),
+ * }
+ * @returns A JSON object holding the data of the new user
+ */
 server.post("/register", (req, res) => {
   const username = req.body.Username,
     password = req.body.Password,
@@ -320,7 +402,17 @@ server.post("/register", (req, res) => {
     });
 });
 
-//update user info
+/**
+ * Endpoint: /users/[username]
+ * The fields to update must be sent in the body of the request as a JSON object in the format:
+ * {
+ *  "Username" : "newusername",
+ *  "Password" : "newpassword"
+ *   ...
+ * }
+ * @returns A JSON object holding the data of the new user
+ * @example /users/mochi
+ */
 server.put("/users/:username", (req, res) => {
   const { username } = req.params;
   Users.findOneAndUpdate(
@@ -351,7 +443,13 @@ server.put("/users/:username", (req, res) => {
     });
 });
 
-//add movie to user's list of favorites
+/**
+ * Endpoint: /users/[username]/favorites/[movieId]
+ * @param {String} username username of the user we are inquiring (if there are spaces in the username use the metacharacter %20 as spacer)
+ * @param {String} movieId the id of the movie we want to add
+ * @returns A message indicating that the movie has been successfully added to the list of the user's favorites.
+ * @example /users/mochi/favorites/6138df5bc6e139efe0c91ca2
+ */
 server.post("/users/:username/favorites/:movieId", (req, res) => {
   const { username, movieId } = req.params;
   Users.findOneAndUpdate(
@@ -376,7 +474,13 @@ server.post("/users/:username/favorites/:movieId", (req, res) => {
     });
 });
 
-//add movie to user's watchlist
+/**
+ * Endpoint: /users/[username]/watchlist/[movieId]
+ * @param {String} username username of the user we are inquiring (if there are spaces in the username use the metacharacter %20 as spacer)
+ * @param {String} movieId the id of the movie we want to add
+ * @returns 	A message indicating that the movie has been successfully added to the list of the user's watch list.
+ * @example /users/mochi/watchlist/6138df5bc6e139efe0c91ca2
+ */
 server.post("/users/:username/watchlist/:movieId", (req, res) => {
   const { username, movieId } = req.params;
   Users.findOneAndUpdate(
@@ -401,7 +505,13 @@ server.post("/users/:username/watchlist/:movieId", (req, res) => {
     });
 });
 
-//remove movie to user's list of favorites
+/**
+ * Endpoint: /users/[username]/favorites/[movieId]
+ * @param {String} username username of the user we are inquiring (if there are spaces in the username use the metacharacter %20 as spacer)
+ * @param {String} movieId the id of the movie we want to remove
+ * @returns 	A message indicating that the movie has been successfully removed from the list of the user's favorites.
+ * @example /users/mochi/favorites/6138df5bc6e139efe0c91ca2
+ */
 server.delete("/users/:username/favorites/:movieId", (req, res) => {
   const { username, movieId } = req.params;
   Users.findOneAndUpdate(
@@ -426,6 +536,13 @@ server.delete("/users/:username/favorites/:movieId", (req, res) => {
     });
 });
 
+/**
+ * Endpoint: /users/[username]/watchlist/[movieId]
+ * @param {String} username username of the user we are inquiring (if there are spaces in the username use the metacharacter %20 as spacer)
+ * @param {String} movieId the id of the movie we want to remove
+ * @returns 	A message indicating that the movie has been successfully removed from the list of the user's watch list.
+ * @example /users/mochi/watchlist/6138df5bc6e139efe0c91ca2
+ */
 server.delete("/users/:username/watchlist/:movieId", (req, res) => {
   const { username, movieId } = req.params;
   Users.findOneAndUpdate(
@@ -450,6 +567,12 @@ server.delete("/users/:username/watchlist/:movieId", (req, res) => {
     });
 });
 
+/**
+ * Endpoint: /users/[username]/deregister
+ * @param {String} username username of the user we want to remove(if there are spaces in the username use the metacharacter %20 as spacer)
+ * @returns A message indicating that the movie has been successfully removed from the user's watchlist.
+ * @example /users/mochi/deregister
+ */
 server.delete("/users/:username/deregister", (req, res) => {
   const { username } = req.params;
   Users.findOneAndRemove({ Username: username })
@@ -467,8 +590,6 @@ server.delete("/users/:username/deregister", (req, res) => {
       res.status(500).send(errorMsg(500, err));
     });
 });
-
-//End Business Logic
 
 /**
  * Error handling middleware function
