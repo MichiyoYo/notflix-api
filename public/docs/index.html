@@ -92,7 +92,7 @@
                 <thead class="thead-dark">
                   <tr>
                     <th scope="col">Requests</th>
-                    <th scope="col">ULR</th>
+                    <th scope="col">URL</th>
                     <th scope="col">HTTP Method</th>
                     <th scope="col">Request Body Data Format</th>
                     <th scope="col">Response Body Data Format</th>
@@ -101,7 +101,7 @@
                 <tbody>
                   <tr>
                     <td>Return a list of all movies to the user.</td>
-                    <td class="url">/movies</td>
+                    <td class="url">/catalog/movies</td>
                     <td class="method">GET</td>
                     <td>None</td>
                     <td>A JSON holding the data about all the movies.</td>
@@ -115,21 +115,21 @@
                   </tr>
                   <tr>
                     <td>Return a list of all genres to the user.</td>
-                    <td class="url">/genres</td>
+                    <td class="url">/catalog/genres</td>
                     <td class="method">GET</td>
                     <td>None</td>
                     <td>A JSON holding the data about all the genres.</td>
                   </tr>
                   <tr>
                     <td>Return a list of all directors to the user.</td>
-                    <td class="url">/directors</td>
+                    <td class="url">/catalog/directors</td>
                     <td class="method">GET</td>
                     <td>None</td>
                     <td>A JSON holding the data about all the directors.</td>
                   </tr>
                   <tr>
                     <td>Return a list of all actors to the user.</td>
-                    <td class="url">/actors</td>
+                    <td class="url">/catalog/actors</td>
                     <td class="method">GET</td>
                     <td>None</td>
                     <td>A JSON holding the data about all the actors.</td>
@@ -138,13 +138,14 @@
                     <td>
                       Return data about a single movie by title to the user.
                     </td>
-                    <td class="url">/movies/[title]</td>
+                    <td class="url">/catalog/movies/[title]</td>
                     <td class="method">GET</td>
                     <td>None</td>
                     <td>
                       A JSON object holding the data about a single movie.<br />Example:
-                      for the request with URL <code>/movies/Parasite</code> the
-                      following response will be returned: <br />
+                      for the request with URL
+                      <code>/catalog/movies/Parasite</code> the following
+                      response will be returned: <br />
                       <!-- prettier-ignore-start -->
                       <pre>
                         <code>
@@ -236,14 +237,14 @@
                   </tr>
                   <tr>
                     <td>Return info about a genre by name.</td>
-                    <td class="url">/genres/[name]</td>
+                    <td class="url">/catalog/genres/[name]</td>
                     <td class="method">GET</td>
                     <td>None</td>
                     <td>
                       A JSON object holding the drescription of the genre.<br />
                       Example: for the request with URL
-                      <code>/genres/Thriller</code> the following response will
-                      be returned:
+                      <code>/catalog/genres/Thriller</code> the following
+                      response will be returned:
                       <pre>
                         <code>
 {
@@ -258,14 +259,14 @@
 
                   <tr>
                     <td>Return data about a director by name.</td>
-                    <td class="url">/directors/[name]</td>
+                    <td class="url">/catalog/directors/[name]</td>
                     <td class="method">GET</td>
                     <td>None</td>
                     <td>
                       A JSON object holding the info about the director.<br />
                       Example: for the request with URL
-                      <code>/directors/Steven%20Spielberg</code> the following
-                      response will be returned:
+                      <code>/catalog/directors/Steven%20Spielberg</code> the
+                      following response will be returned:
                       <pre>
                         <code>
 {
@@ -292,14 +293,14 @@
 
                   <tr>
                     <td>Return data about an actor by name.</td>
-                    <td class="url">/actors/[name]</td>
+                    <td class="url">/catalog/actors/[name]</td>
                     <td class="method">GET</td>
                     <td>None</td>
                     <td>
                       A JSON object holding the info about the actor.<br />
                       Example: for the request with URL
-                      <code>/actors/Leonardo%20DiCaprio</code> the following
-                      response will be returned:
+                      <code>/catalog/actors/Leonardo%20DiCaprio</code> the
+                      following response will be returned:
                       <pre>
                         <code>
 {
@@ -322,15 +323,15 @@
                     <td>
                       Allow users to see which actors star in which movies.
                     </td>
-                    <td class="url">/movies/[movieTitle]/cast</td>
+                    <td class="url">/catalog/movies/[movieTitle]/cast</td>
                     <td class="method">GET</td>
                     <td>None</td>
                     <td>
                       A JSON object holding the list of actors that star in the
                       movie with title <code>movieTitle</code>.<br />
                       Example: for the request with URL
-                      <code>/movies/Back%20to%20the%20future/cast</code> the
-                      following response will be returned:
+                      <code>/catalog/movies/Back%20to%20the%20future/cast</code>
+                      the following response will be returned:
                       <pre>
                         <code>
 {
@@ -417,7 +418,7 @@
 
                   <tr>
                     <td>Allow new users to register.</td>
-                    <td class="url">/register</td>
+                    <td class="url">/users/register</td>
                     <td class="method">POST</td>
                     <td>
                       A JSON object holding data about the new user.<br />
@@ -543,7 +544,7 @@
                   </tr>
                   <tr>
                     <td>Allow existing users to deregister.</td>
-                    <td class="url">users/[username]/deregister</td>
+                    <td class="url">/users/[username]/deregister</td>
                     <td class="method">DELETE</td>
                     <td>None</td>
                     <td>
