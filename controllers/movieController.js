@@ -1,10 +1,9 @@
-var MovieModel = require("../models/movie");
+var MovieModel = require("../models/movie"),
+  path = require("path");
 const Movies = MovieModel.Movie;
 
 exports.home = function (req, res) {
-  let responseText =
-    "<h1>Welcome to NotFlix! 🍿</h1><h2>Not your mother's movie DB.</h2>";
-  res.status(200).send(responseText);
+  res.status(200).sendFile(path.join(__dirname, "../public/index.html"));
 };
 
 exports.getMovieList = async function (req, res) {

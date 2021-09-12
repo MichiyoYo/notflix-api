@@ -1,6 +1,12 @@
 var UserModel = require("../models/user");
 const Users = UserModel.User;
 
+/**
+ * This function returns a list of all the movies
+ * @param {object} req
+ * @param {object} res
+ * @returns A JSON holding the data about all the movies
+ */
 exports.getUserList = async function (req, res) {
   try {
     const users = await Users.find()

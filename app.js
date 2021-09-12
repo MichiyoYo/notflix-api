@@ -6,7 +6,9 @@
 
 const express = require("express"),
   morgan = require("morgan"),
-  mongoose = require("mongoose");
+  mongoose = require("mongoose"),
+  createError = require("http-errors"),
+  path = require("path");
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
@@ -27,8 +29,8 @@ app.use(morgan("common"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use(express.static("public"));
-app.use("/docs", express.static("public/docs"));
+app.use(express.static(path.join(__dirname, "public")));
+app.use("/docs", express.static(path.join(__dirname, "public/docs")));
 
 //Setting up Routes
 app.use("/", indexRouter);
@@ -44,13 +46,8 @@ app.use(function (req, res, next) {
 app.use(function (err, req, res, next) {
   //set locals to only provide error in development
   res.locals.message = err.message;
-  res.locals.error = req.app.get("evn") === "development" ? err : {};
-  res.status(err.status || 500).send(
-    `
-  Onoes, something bad happened! 🙀
-  Error: ${err}
-  `
-  );
+  res.locals.error = req.app.get("env") === "development" ? err : {};
+  res.status(err.status || 500).send(`An error occurred: ${err}`);
 });
 
 app.listen(PORT, "0.0.0.0", () => {
