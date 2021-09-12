@@ -1,0 +1,7 @@
+#!/usr/bin/env node
+
+/**
+ * Main entry point
+ */
+
+const app = require("../app");
