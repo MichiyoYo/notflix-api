@@ -18,15 +18,15 @@ To install the application run
 npm install
 ```
 
-To run the application use
+To launch the application use
 
-Development:
+**Development:**
 
 ```
 npm run devstart
 ```
 
-Production:
+**Production:**
 
 ```
 npm start
