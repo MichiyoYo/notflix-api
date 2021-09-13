@@ -50,7 +50,7 @@ app.use(function (err, req, res, next) {
   //set locals to only provide error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
-  res.status(err.status || 500).send(`An error occurred: ${err}`);
+  res.status(err.status || 500).send(`🛑 An error occurred: ${err}`);
 });
 
 app.listen(PORT, "0.0.0.0", () => {

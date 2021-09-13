@@ -2,6 +2,8 @@ var express = require("express"),
   router = express.Router();
 
 const userController = require("../controllers/userController");
+const passport = require("passport");
+require("../authentication/passport");
 
 //User Routes
 
@@ -9,7 +11,11 @@ const userController = require("../controllers/userController");
  * Endpoint: /users
  * @returns A JSON holding the data about all the users.
  */
-router.get("/", userController.getUserList);
+router.get(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  userController.getUserList
+);
 
 /**
  * Endpoint: /users/[username]
@@ -17,7 +23,11 @@ router.get("/", userController.getUserList);
  * @returns A JSON object holding the data about a single user.
  * @example /users/mochi
  */
-router.get("/:username", userController.getUserDetails);
+router.get(
+  "/:username",
+  passport.authenticate("jwt", { session: false }),
+  userController.getUserDetails
+);
 
 /**
  * Endpoint: /users/[username]/favorites
@@ -25,7 +35,11 @@ router.get("/:username", userController.getUserDetails);
  * @returns A JSON object holding the data about the favorite movies of the user.
  * @example /users/loejester/favorites
  */
-router.get("/:username/favorites", userController.getUserFavs);
+router.get(
+  "/:username/favorites",
+  passport.authenticate("jwt", { session: false }),
+  userController.getUserFavs
+);
 
 /**
  * Endpoint: /users/[username]/watchlist
@@ -33,7 +47,11 @@ router.get("/:username/favorites", userController.getUserFavs);
  * @returns A JSON object holding the data about the watch list of the user.
  * @example /users/loejester/watchlist
  */
-router.get("/:username/watchlist", userController.getUserWatchList);
+router.get(
+  "/:username/watchlist",
+  passport.authenticate("jwt", { session: false }),
+  userController.getUserWatchList
+);
 
 /**
  * Endpoint: /register
@@ -60,7 +78,11 @@ router.post("/register", userController.userRegister);
  * @returns A JSON object holding the data of the new user
  * @example /users/mochi
  */
-router.put("/:username", userController.userUpdate);
+router.put(
+  "/:username",
+  passport.authenticate("jwt", { session: false }),
+  userController.userUpdate
+);
 
 /**
  * Endpoint: /users/[username]/favorites/[movieId]
@@ -69,7 +91,11 @@ router.put("/:username", userController.userUpdate);
  * @returns A message indicating that the movie has been successfully added to the list of the user's favorites.
  * @example /users/mochi/favorites/6138df5bc6e139efe0c91ca2
  */
-router.post("/:username/favorites/:movieId", userController.userAddToFavs);
+router.post(
+  "/:username/favorites/:movieId",
+  passport.authenticate("jwt", { session: false }),
+  userController.userAddToFavs
+);
 
 /**
  * Endpoint: /users/[username]/watchlist/[movieId]
@@ -78,7 +104,11 @@ router.post("/:username/favorites/:movieId", userController.userAddToFavs);
  * @returns 	A message indicating that the movie has been successfully added to the list of the user's watch list.
  * @example /users/mochi/watchlist/6138df5bc6e139efe0c91ca2
  */
-router.post("/:username/watchlist/:movieId", userController.userAddToWatchList);
+router.post(
+  "/:username/watchlist/:movieId",
+  passport.authenticate("jwt", { session: false }),
+  userController.userAddToWatchList
+);
 
 /**
  * Endpoint: /users/[username]/favorites/[movieId]
@@ -89,6 +119,7 @@ router.post("/:username/watchlist/:movieId", userController.userAddToWatchList);
  */
 router.delete(
   "/:username/favorites/:movieId",
+  passport.authenticate("jwt", { session: false }),
   userController.userRemoveFromFavs
 );
 
@@ -101,6 +132,7 @@ router.delete(
  */
 router.delete(
   "/:username/watchlist/:movieId",
+  passport.authenticate("jwt", { session: false }),
   userController.userRemoveFromFavs
 );
 
@@ -110,6 +142,10 @@ router.delete(
  * @returns A message indicating that the movie has been successfully removed from the user's watchlist.
  * @example /users/mochi/deregister
  */
-router.delete("/:username/deregister", userController.userDeregister);
+router.delete(
+  "/:username/deregister",
+  passport.authenticate("jwt", { session: false }),
+  userController.userDeregister
+);
 
 module.exports = router;

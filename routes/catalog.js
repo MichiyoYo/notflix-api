@@ -34,7 +34,11 @@ router.get(
  * @returns A JSON object holding the data about a single movie.
  * @example /movies/Parasite
  */
-router.get("/movies/:movieTitle", movieController.getMovieDetails);
+router.get(
+  "/movies/:movieTitle",
+  passport.authenticate("jwt", { session: false }),
+  movieController.getMovieDetails
+);
 
 /**
  * Endpoint: /movies/[movieTitle]/cast
@@ -42,7 +46,11 @@ router.get("/movies/:movieTitle", movieController.getMovieDetails);
  * @returns A JSON object holding the data about the cast of the movie.
  * @example /movies/Parasite/cast
  */
-router.get("/movies/:movieTitle/cast", movieController.getMovieCast);
+router.get(
+  "/movies/:movieTitle/cast",
+  passport.authenticate("jwt", { session: false }),
+  movieController.getMovieCast
+);
 
 //Genre Routes
 
@@ -50,7 +58,11 @@ router.get("/movies/:movieTitle/cast", movieController.getMovieCast);
  * Endpoint: /genres
  * @returns A JSON holding the data about all the genres.
  */
-router.get("/genres", genreController.getGenreList);
+router.get(
+  "/genres",
+  passport.authenticate("jwt", { session: false }),
+  genreController.getGenreList
+);
 
 /**
  * Endpoint: /genres/[name]
@@ -58,7 +70,11 @@ router.get("/genres", genreController.getGenreList);
  * @returns A JSON object holding the data about a single genre.
  * @example /genres/Thriller
  */
-router.get("/genres/:name", genreController.getGenreDetails);
+router.get(
+  "/genres/:name",
+  passport.authenticate("jwt", { session: false }),
+  genreController.getGenreDetails
+);
 
 //Director Routes
 
@@ -66,7 +82,11 @@ router.get("/genres/:name", genreController.getGenreDetails);
  * Endpoint: /directors
  * @returns A JSON holding the data about all the directors.
  */
-router.get("/directors", directorController.getDirectorList);
+router.get(
+  "/directors",
+  passport.authenticate("jwt", { session: false }),
+  directorController.getDirectorList
+);
 
 /**
  * Endpoint: /directors/[name]
@@ -74,7 +94,11 @@ router.get("/directors", directorController.getDirectorList);
  * @returns A JSON object holding the data about a single genre.
  * @example /directors/Steven%20Spielberg
  */
-router.get("/directors/:name", directorController.getDiretctorDetails);
+router.get(
+  "/directors/:name",
+  passport.authenticate("jwt", { session: false }),
+  directorController.getDiretctorDetails
+);
 
 //Actor Routes
 
@@ -82,7 +106,11 @@ router.get("/directors/:name", directorController.getDiretctorDetails);
  * Endpoint: /actors
  * @returns A JSON holding the data about all the actors.
  */
-router.get("/actors", actorController.getActorList);
+router.get(
+  "/actors",
+  passport.authenticate("jwt", { session: false }),
+  actorController.getActorList
+);
 
 /**
  * Endpoint: /actors/[name]
@@ -90,6 +118,10 @@ router.get("/actors", actorController.getActorList);
  * @returns A JSON object holding the data about a single actor.
  * @example /actors/Harrison%20Ford
  */
-router.get("/actors/:name", actorController.getActorDetails);
+router.get(
+  "/actors/:name",
+  passport.authenticate("jwt", { session: false }),
+  actorController.getActorDetails
+);
 
 module.exports = router;
