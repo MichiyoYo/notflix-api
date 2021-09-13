@@ -1,0 +1,24 @@
+body.home {
+  background: url("/public/img/notflix-home-bg.jpg") center center no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Manrope", sans-serif;
+  .title-holder {
+    text-align: center;
+    color: #ffffff;
+    background: #6200ff;
+    padding: 30px 55px;
+    border-radius: 40px;
+    border: 10px solid #292272;
+
+    h1 {
+      font-size: 70px;
+    }
+    h2 {
+      font-size: 50px;
+    }
+  }
+}
