@@ -7,6 +7,9 @@ const movieController = require("../controllers/movieController"),
   directorController = require("../controllers/directorController"),
   actorController = require("../controllers/actorController");
 
+const passport = require("passport");
+require("../authentication/passport");
+
 //Home
 /**
  * Main endpoit to reach the home page of NotFlix
@@ -19,7 +22,11 @@ router.get("/", movieController.home);
  * Endpoint: /movies
  * @returns A JSON holding the data about all the movies.
  */
-router.get("/movies", movieController.getMovieList);
+router.get(
+  "/movies",
+  passport.authenticate("jwt", { session: false }),
+  movieController.getMovieList
+);
 
 /**
  * Endpoint: /movies/[movieTitle]

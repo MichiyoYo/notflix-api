@@ -29,6 +29,9 @@ app.use(morgan("common"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+//Authentication
+let auth = require("./authentication/auth")(app);
+
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/docs", express.static(path.join(__dirname, "public/docs")));
 
