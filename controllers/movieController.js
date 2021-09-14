@@ -1,69 +1,18 @@
-var MovieModel = require("../models/movie"),
-  path = require("path");
-const Movies = MovieModel.Movie;
+const { Movie } = require("../models/movie");
+const MovieService = require("../services/movieService");
 
-exports.home = function (req, res) {
-  res.status(200).sendFile(path.join(__dirname, "../public/index.html"));
+exports.home = (req, res) => {
+  return MovieService.home(req, res);
 };
 
-exports.getMovieList = async function (req, res) {
-  try {
-    const movies = await Movies.find().populate("Cast", "Name");
-    res.status(200).json(movies);
-  } catch (err) {
-    res.status(500).send(`
-    Oh no! Something went wrong! 😱
-    Error: ${err}
-    `);
-  }
+exports.getMovieList = (req, res) => {
+  return MovieService.getMovieList(req, res);
 };
 
-exports.getMovieDetails = async function (req, res) {
-  const { movieTitle } = req.params;
-  try {
-    const movie = await Movies.findOne({ Title: movieTitle }).populate(
-      "Cast",
-      "Name"
-    );
-    if (movie) {
-      res.status(200).json(movie);
-    } else {
-      res
-        .status(404)
-        .send(
-          `Sorry, we don't have the movie "${movieTitle}" in our database! 🤷`
-        );
-    }
-  } catch (err) {
-    res.status(500).send(`
-    Oh no! Something went wrong! 😱
-    Error: ${err}
-    `);
-  }
+exports.getMovieDetails = (req, res) => {
+  return MovieService.getMovieDetails(req, res);
 };
 
-exports.getMovieCast = async function (req, res) {
-  const { movieTitle } = req.params;
-  try {
-    const movie = await Movies.findOne({ Title: movieTitle }).populate({
-      path: "Cast",
-      select: "Name -_id",
-    });
-    if (!movie) {
-      res
-        .status(404)
-        .send(
-          `Sorry, we don't have the movie "${movieTitle}" in our database! 🤷`
-        );
-    } else {
-      res.status(200).json({
-        Cast: movie.Cast,
-      });
-    }
-  } catch (err) {
-    res.status(500).send(`
-    Oh no! Something went wrong! 😱
-    Error: ${err}
-    `);
-  }
+exports.getMovieCast = (req, res) => {
+  return MovieService.getMovieCast(req, res);
 };
