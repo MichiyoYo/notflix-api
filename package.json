@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
-    "docs": "jsdoc -c jsdoc.json"
+    "docs": "jsdoc routes/catalog.js routes/users.js -c jsdoc.json"
   },
   "repository": {
     "type": "git",
@@ -39,6 +39,7 @@
     "path": "^0.12.7"
   },
   "devDependencies": {
+    "jsdoc": "^3.6.7",
     "nodemon": "^2.0.12"
   }
 }
