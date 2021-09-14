@@ -93,6 +93,8 @@ exports.userRegister = function (req, res) {
     email = req.body.Email,
     birthDate = req.body.BirthDate;
 
+  let hashedPassword = Users.hashPassword(password);
+
   Users.findOne({ Username: username })
     .then((user) => {
       if (user) {
@@ -102,7 +104,7 @@ exports.userRegister = function (req, res) {
       } else {
         Users.create({
           Username: username,
-          Password: password,
+          Password: hashedPassword,
           Name: name,
           Email: email,
           BirthDate: new Date(birthDate),

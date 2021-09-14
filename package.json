@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./bin/www",
-    "devstart": "nodemon ./bin/www",
+    "dev": "nodemon ./bin/www",
     "docs": "jsdoc -c jsdoc.json"
   },
   "repository": {
@@ -25,6 +25,8 @@
   },
   "homepage": "https://github.com/MichiyoYo/notflix#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "http-errors": "^1.8.0",
     "jsonwebtoken": "^8.5.1",

@@ -8,7 +8,8 @@ const express = require("express"),
   morgan = require("morgan"),
   mongoose = require("mongoose"),
   createError = require("http-errors"),
-  path = require("path");
+  path = require("path"),
+  cors = require("cors");
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
@@ -23,11 +24,32 @@ mongoose.connect("mongodb://localhost:27017/NotFlixDB", {
   useUnifiedTopology: true,
 });
 
-//Middleware libraries
+//Middleware
 
 app.use(morgan("common"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+//CORS integration
+let allowedOrigins = [
+  "http://localhost:8080",
+  "https://michiyoyo.github.io/notflix",
+];
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        // If a specific origin isn’t found on the list of allowed origins
+        let message =
+          "The CORS policy for this application doesn’t allow access from origin " +
+          origin;
+        return callback(new Error(message), false);
+      }
+      return callback(null, true);
+    },
+  })
+);
 
 //Authentication
 let auth = require("./authentication/auth")(app);
