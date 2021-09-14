@@ -26,7 +26,7 @@ main {
 }
 
 footer {
-  background: #6200ffa6;
+  background: linear-gradient(179deg, #6200ffb8, #013e3bf2);
   width: 100%;
   text-align: center;
   -webkit-box-flex: 1;
@@ -52,6 +52,12 @@ footer {
 footer p {
   color: #fff;
   font-size: 13px;
+  margin-bottom: 10px;
+}
+
+footer p:last-child {
+  margin-bottom: 0;
+  margin-top: 0;
 }
 
 a {
@@ -140,6 +146,12 @@ body.home main .title-holder h1 span {
 
 body.home main .title-holder h1 img {
   max-width: 400px;
+}
+
+@media screen and (max-width: 500px) {
+  body.home main .title-holder h1 img {
+    max-width: 295px;
+  }
 }
 
 body.home main .title-holder h2 {

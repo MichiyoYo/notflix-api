@@ -21,7 +21,7 @@ main {
   flex: 3 2 auto;
 }
 footer {
-  background: #6200ffa6;
+  background: linear-gradient(179deg, #6200ffb8, #013e3bf2);
   width: 100%;
   text-align: center;
   flex: 1 1 auto;
@@ -34,6 +34,11 @@ footer {
   p {
     color: #fff;
     font-size: 13px;
+    margin-bottom: 10px;
+    &:last-child {
+      margin-bottom: 0;
+      margin-top: 0;
+    }
   }
 }
 
