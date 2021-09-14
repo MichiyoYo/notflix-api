@@ -17,7 +17,7 @@ const catalorRouter = require("./routes/catalog");
 
 const app = express();
 
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 mongoose.connect("mongodb://localhost:27017/NotFlixDB", {
   useNewUrlParser: true,
