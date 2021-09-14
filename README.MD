@@ -1,3 +1,5 @@
+<img src="https://i.ibb.co/3CSMjkV/notflixapi-home.png" style="max-width:350px; margin:0 auto;" alt="A screenshot of the homepage of the NotFlix API website">
+
 # Overview
 
 NotFlix is a web application that will provide users with access to information about different movies, directors, genres, actors.
