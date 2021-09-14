@@ -1,5 +1,6 @@
 const UserModel = require("../models/user");
 const Users = UserModel.User;
+const { validationResult } = require("express-validator");
 
 exports.getUserList = async function (req, res) {
   try {
@@ -87,6 +88,13 @@ exports.getUserWatchList = async function (req, res) {
 };
 
 exports.userRegister = function (req, res) {
+  // check the validation object for errors
+  let errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
   const username = req.body.Username,
     password = req.body.Password,
     name = req.body.Name,
@@ -131,19 +139,31 @@ exports.userRegister = function (req, res) {
 };
 
 exports.userUpdate = function (req, res) {
-  const { username } = req.params;
+  let errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
+  const username = req.body.Username,
+    password = req.body.Password,
+    name = req.body.Name,
+    email = req.body.Email,
+    birthDate = req.body.BirthDate;
+
+  let hashedPassword = Users.hashPassword(password);
   Users.findOneAndUpdate(
     { Username: username },
     {
       $set: {
-        Username: req.body.Username,
-        Password: req.body.Password,
-        Name: req.body.Name,
-        Email: req.body.Email,
-        BirthDate: req.body.BirthDate,
+        Username: username,
+        Password: hashedPassword,
+        Name: name,
+        Email: email,
+        BirthDate: birthDate,
       },
     },
-    { new: true, upsert: true }
+    { new: true, upsert: false }
   )
     .then((updatedUser) => {
       if (updatedUser) {

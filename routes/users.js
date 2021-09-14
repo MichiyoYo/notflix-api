@@ -1,5 +1,6 @@
 var express = require("express"),
   router = express.Router();
+const { check } = require("express-validator");
 
 const userController = require("../controllers/userController");
 const passport = require("passport");
@@ -65,21 +66,44 @@ router.get(
  * }
  * @returns A JSON object holding the data of the new user
  */
-router.post("/register", userController.userRegister);
+router.post(
+  "/register",
+  [
+    check("Username", "Username is required").isLength({ min: 5 }),
+    check(
+      "Username",
+      "Username contains non alphanumeric characters - not allowed."
+    ).isAlphanumeric(),
+    check("Password", "Password is required").not().isEmpty(),
+    check("Email", "Email does not appear to be valid").isEmail(),
+  ],
+  userController.userRegister
+);
 
 /**
  * Endpoint: /users/[username]
  * The fields to update must be sent in the body of the request as a JSON object in the format:
  * {
  *  "Username" : "newusername",
- *  "Password" : "newpassword"
+ *  "Password" : "newpassword",
+ *  "Email" : "newemail"
  *   ...
  * }
+ * Username, Password and Email are mandatory
  * @returns A JSON object holding the data of the new user
  * @example /users/mochi
  */
 router.put(
   "/:username",
+  [
+    check("Username", "Username is required").isLength({ min: 5 }),
+    check(
+      "Username",
+      "Username contains non alphanumeric characters - not allowed."
+    ).isAlphanumeric(),
+    check("Password", "Password is required").not().isEmpty(),
+    check("Email", "Email does not appear to be valid").isEmail(),
+  ],
   passport.authenticate("jwt", { session: false }),
   userController.userUpdate
 );

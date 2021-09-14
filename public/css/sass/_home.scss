@@ -5,20 +5,57 @@ body.home {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: "Manrope", sans-serif;
-  .title-holder {
-    text-align: center;
-    color: #ffffff;
-    background: #6200ff;
-    padding: 30px 55px;
-    border-radius: 40px;
-    border: 10px solid #292272;
+  font-family: "Roboto", sans-serif;
+  min-height: 100vh;
 
-    h1 {
-      font-size: 70px;
-    }
-    h2 {
-      font-size: 50px;
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .title-holder {
+      text-align: center;
+      color: #ffffff;
+      background: #2d0075d6;
+      padding: 30px 55px;
+
+      h1 {
+        font-size: 55px;
+        span {
+          font-size: 70px;
+        }
+        img {
+          max-width: 400px;
+        }
+      }
+      h2 {
+        font-size: 35px;
+      }
+      @media screen and (max-width: 500px) {
+        padding: 20px;
+        h1 {
+          font-size: 40px;
+
+          span {
+            font-size: 50px;
+          }
+        }
+        h2 {
+          font-size: 30px;
+        }
+      }
+      a.btn {
+        background-color: #fff;
+        color: #6200ff;
+        padding: 10px 25px;
+        font-weight: 600;
+        font-size: 17px;
+        text-decoration: none;
+        border-radius: 6px;
+        margin: 20px auto;
+        width: fit-content;
+        text-transform: uppercase;
+      }
     }
   }
 }
