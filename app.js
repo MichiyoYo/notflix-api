@@ -19,7 +19,17 @@ const app = express();
 
 const PORT = process.env.PORT || 8080;
 
+//Database Connection
+
+/*
+//Local Database
 mongoose.connect("mongodb://localhost:27017/NotFlixDB", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+*/
+//Atlas Database
+mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
