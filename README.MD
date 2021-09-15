@@ -8,6 +8,8 @@ Users will be able to sign up, update their personal information, and create a l
 
 The APIs are accessible only to registered users, the authentication is regulated by JWT access tokens uniquely generated and assigned to a user.
 
+Check out the [live demo](https://notflixapi.herokuapp.com/)
+
 ## Tech Stack:
 
 - MongoDB
@@ -28,7 +30,7 @@ To launch the application use
 **Development:**
 
 ```
-npm run devstart
+npm run dev
 ```
 
 **Production:**
@@ -37,4 +39,4 @@ npm run devstart
 npm start
 ```
 
-For the documentation about how to use the APIs, please visit the [/docs](https://michiyoyo.github.io/notflix/docs)
+For the documentation about how to use the APIs, please visit the [/docs](https://notflixapi.herokuapp.com/docs/)
