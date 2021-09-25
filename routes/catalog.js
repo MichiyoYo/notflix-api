@@ -24,7 +24,7 @@ router.get("/", movieController.home);
  */
 router.get(
   "/movies",
-  // passport.authenticate("jwt", { session: false }),
+  passport.authenticate("jwt", { session: false }),
   movieController.getMovieList
 );
 
