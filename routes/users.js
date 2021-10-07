@@ -157,7 +157,7 @@ router.delete(
 router.delete(
   "/:username/watchlist/:movieId",
   passport.authenticate("jwt", { session: false }),
-  userController.userRemoveFromFavs
+  userController.userRemoveFromWatchList
 );
 
 /**
