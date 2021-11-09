@@ -40,11 +40,7 @@ exports.getUserFavs = async function (req, res) {
   try {
     const user = await Users.findOne({ Username: username }).populate(
       "FavoriteMovies",
-      "Title",
-      "Director",
-      "Genre",
-      "Description",
-      "ImageUrl"
+      "Title"
     );
     if (!user) {
       res
