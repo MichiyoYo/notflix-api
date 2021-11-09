@@ -38,11 +38,9 @@ exports.getUserDetails = async function (req, res) {
 exports.getUserFavs = async function (req, res) {
   const { username } = req.params;
   try {
-    // const user = await Users.findOne({ Username: username }).populate(
-    //   "FavoriteMovies",
-    //   "Title"
-    // );
-    const user = await Users.findOne({ Username: username });
+    const user = await Users.findOne({ Username: username }).populate(
+      "FavoriteMovies"
+    );
     if (!user) {
       res
         .status(404)
