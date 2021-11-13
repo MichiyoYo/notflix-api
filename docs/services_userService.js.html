@@ -1,4 +1,32 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: services/userService.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: services/userService.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * Services for User Model
  * @requires ../models/user
  * @requires express-validator
@@ -34,8 +62,8 @@ const Users = UserModel.User;
  * Retrieves the list of all the users
  * @async
  * @function GET getUserList
- * @param {Promise<string>} req the request
- * @param {Promise<object>} res the data from the storage
+ * @param {Promise&lt;string>} req the request
+ * @param {Promise&lt;object>} res the data from the storage
  * @example /users/mochi
  */
 exports.getUserList = async function (req, res) {
@@ -57,8 +85,8 @@ exports.getUserList = async function (req, res) {
  * Retrieves the details of the user
  * @async
  * @function GET getUserDetails
- * @param {Promise<string>} req the request
- * @param {Promise<object>} res the data from the storage
+ * @param {Promise&lt;string>} req the request
+ * @param {Promise&lt;object>} res the data from the storage
  * @example /users/mochi
  */
 exports.getUserDetails = async function (req, res) {
@@ -85,8 +113,8 @@ exports.getUserDetails = async function (req, res) {
  * Retrieves the user's list of favorites
  * @async
  * @function GET getUserFavs
- * @param {Promise<string>} req the request
- * @param {Promise<object>} res the data from the storage
+ * @param {Promise&lt;string>} req the request
+ * @param {Promise&lt;object>} res the data from the storage
  * @example /users/loejester/favorites
  */
 exports.getUserFavs = async function (req, res) {
@@ -119,8 +147,8 @@ exports.getUserFavs = async function (req, res) {
  * Retrieves the user's watchlist
  * @async
  * @function GET getUserWatchList
- * @param {Promise<string>} req the request
- * @param {Promise<object>} res the data from the storage
+ * @param {Promise&lt;string>} req the request
+ * @param {Promise&lt;object>} res the data from the storage
  * @example /users/loejester/watchlist
  */
 exports.getUserWatchList = async function (req, res) {
@@ -162,8 +190,8 @@ exports.getUserWatchList = async function (req, res) {
  * Adds a new user to the database
  * @async
  * @function POST userRegister
- * @param {Promise<object>} req the request object holding the data to send to the storage
- * @param {Promise<object>} res the data from the storage holding the info of the user
+ * @param {Promise&lt;object>} req the request object holding the data to send to the storage
+ * @param {Promise&lt;object>} res the data from the storage holding the info of the user
  */
 exports.userRegister = function (req, res) {
   // check the validation object for errors
@@ -229,8 +257,8 @@ exports.userRegister = function (req, res) {
  * Updates a user with new info
  * @async
  * @function PUT userUpdate
- * @param {Promise<object>} req the request object holding the data to send to the storage
- * @param {Promise<object>} res the data from the storage holding the info of the user
+ * @param {Promise&lt;object>} req the request object holding the data to send to the storage
+ * @param {Promise&lt;object>} res the data from the storage holding the info of the user
  * @example /users/mochi
  */
 exports.userUpdate = function (req, res) {
@@ -283,8 +311,8 @@ exports.userUpdate = function (req, res) {
  * Adds a movie to a user's list of favorites
  * @async
  * @function POST userAddToFavs
- * @param {Promise<string>} req the request
- * @param {Promise<string>} res a message about the result of the operation
+ * @param {Promise&lt;string>} req the request
+ * @param {Promise&lt;string>} res a message about the result of the operation
  * @example /users/mochi/favorites/6138df5bc6e139efe0c91ca2
  */
 exports.userAddToFavs = function (req, res) {
@@ -319,8 +347,8 @@ exports.userAddToFavs = function (req, res) {
  * Adds a movie to a user's watchlist
  * @async
  * @function POST userAddToFavs
- * @param {Promise<string>} req the request
- * @param {Promise<string>} res a message about the result of the operation
+ * @param {Promise&lt;string>} req the request
+ * @param {Promise&lt;string>} res a message about the result of the operation
  * @example /users/mochi/watchlist/6138df5bc6e139efe0c91ca2
  */
 exports.userAddToWatchList = function (req, res) {
@@ -355,8 +383,8 @@ exports.userAddToWatchList = function (req, res) {
  * Removes a movie from a user's list of favorites
  * @async
  * @function DELETE userRemoveFromFavs
- * @param {Promise<string>} req the request
- * @param {Promise<string>} res a message about the result of the operation
+ * @param {Promise&lt;string>} req the request
+ * @param {Promise&lt;string>} res a message about the result of the operation
  * @example /users/mochi/favorites/6138df5bc6e139efe0c91ca2
  */
 exports.userRemoveFromFavs = function (req, res) {
@@ -388,8 +416,8 @@ exports.userRemoveFromFavs = function (req, res) {
  * Removes a movie to a user's watchlist
  * @async
  * @function DELETE userRemoveFromWatchList
- * @param {Promise<string>} req the request
- * @param {Promise<string>} res a message about the result of the operation
+ * @param {Promise&lt;string>} req the request
+ * @param {Promise&lt;string>} res a message about the result of the operation
  * @example /users/mochi/watchlist/6138df5bc6e139efe0c91ca2
  */
 exports.userRemoveFromWatchList = function (req, res) {
@@ -421,8 +449,8 @@ exports.userRemoveFromWatchList = function (req, res) {
  * Deregisters a user
  * @async
  * @function DELETE userDeregister
- * @param {Promise<string>} req the request
- * @param {Promise<string>} res a message about the result of the operation
+ * @param {Promise&lt;string>} req the request
+ * @param {Promise&lt;string>} res a message about the result of the operation
  * @example /users/mochi/deregister
  */
 exports.userDeregister = function (req, res) {
@@ -442,3 +470,26 @@ exports.userDeregister = function (req, res) {
       res.status(500).send(errorMsg(500, err));
     });
 };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#DELETEuserDeregister">DELETE userDeregister</a></li><li><a href="global.html#DELETEuserRemoveFromFavs">DELETE userRemoveFromFavs</a></li><li><a href="global.html#DELETEuserRemoveFromWatchList">DELETE userRemoveFromWatchList</a></li><li><a href="global.html#GETgetActorDetails">GET getActorDetails</a></li><li><a href="global.html#GETgetActorList">GET getActorList</a></li><li><a href="global.html#GETgetDirectorList">GET getDirectorList</a></li><li><a href="global.html#GETgetDiretctorDetails">GET getDiretctorDetails</a></li><li><a href="global.html#GETgetGenreDetails">GET getGenreDetails</a></li><li><a href="global.html#GETgetGenreList">GET getGenreList</a></li><li><a href="global.html#GETgetMovieCast">GET getMovieCast</a></li><li><a href="global.html#GETgetMovieDetails">GET getMovieDetails</a></li><li><a href="global.html#GETgetMovieList">GET getMovieList</a></li><li><a href="global.html#GETgetUserDetails">GET getUserDetails</a></li><li><a href="global.html#GETgetUserFavs">GET getUserFavs</a></li><li><a href="global.html#GETgetUserList">GET getUserList</a></li><li><a href="global.html#GETgetUserWatchList">GET getUserWatchList</a></li><li><a href="global.html#POSTuserAddToFavs">POST userAddToFavs</a></li><li><a href="global.html#POSTuserRegister">POST userRegister</a></li><li><a href="global.html#PUTuserUpdate">PUT userUpdate</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sat Nov 13 2021 15:19:15 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

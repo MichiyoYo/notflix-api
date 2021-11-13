@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: services/movieService.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: services/movieService.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Services for Movie Model
+ * @requires ../models/movie
+ * @exports home
+ * @exports getMovieList
+ * @exports getMovieDetails
+ * @exports getMovieCast
+ */
+
+/**
+ * @description the movie model
+ * @ignore
+ */
+const MovieModel = require("../models/movie"),
+  path = require("path");
+
+/**
+ * @description the Movies entity
+ * @ignore
+ */
+const Movies = MovieModel.Movie;
+
+/**
+ * Serves to the index page
+ * @function home
+ * @param {Promise&lt;string>} req the request
+ * @param {Promise&lt;File>} res the page content
+ * @ignore
+ */
+exports.home = function (req, res) {
+  res.status(200).sendFile(path.join(__dirname, "../public/index.html"));
+};
+
+/**
+ * Endpoint: /movies
+ * Retrieves the list of all the movies
+ * @async
+ * @function GET getMovieList
+ * @param {Promise&lt;string>} req the request
+ * @param {Promise&lt;object>} res the data from the storage
+ */
+exports.getMovieList = async function (req, res) {
+  try {
+    const movies = await Movies.find().populate("Cast", "Name");
+    res.status(200).json(movies);
+  } catch (err) {
+    res.status(500).send(`
+    Oh no! Something went wrong! 😱
+    Error: ${err}
+    `);
+  }
+};
+
+/**
+ * Endpoint: /movies/[movieTitle]
+ * Retrieves the details of a movie
+ * @async
+ * @function GET getMovieDetails
+ * @param {Promise&lt;string>} req the request
+ * @param {Promise&lt;object>} res the data from the storage
+ * @example /movies/Parasite
+ */
+exports.getMovieDetails = async function (req, res) {
+  const { movieTitle } = req.params;
+  try {
+    const movie = await Movies.findOne({ Title: movieTitle }).populate(
+      "Cast",
+      "Name"
+    );
+    if (movie) {
+      res.status(200).json(movie);
+    } else {
+      res
+        .status(404)
+        .send(
+          `Sorry, we don't have the movie "${movieTitle}" in our database! 🤷`
+        );
+    }
+  } catch (err) {
+    res.status(500).send(`
+    Oh no! Something went wrong! 😱
+    Error: ${err}
+    `);
+  }
+};
+
+/**
+ * Endpoint: /movies/[movieTitle]/cast
+ * Retrieves the cast of a movie
+ * @async
+ * @function GET getMovieCast
+ * @param {Promise&lt;string>} req the request
+ * @param {Promise&lt;object>} res the data from the storage
+ * @example /movies/Parasite/cast
+ */
+exports.getMovieCast = async function (req, res) {
+  const { movieTitle } = req.params;
+  try {
+    const movie = await Movies.findOne({ Title: movieTitle }).populate({
+      path: "Cast",
+      select: "Name -_id",
+    });
+    if (!movie) {
+      res
+        .status(404)
+        .send(
+          `Sorry, we don't have the movie "${movieTitle}" in our database! 🤷`
+        );
+    } else {
+      res.status(200).json({
+        Cast: movie.Cast,
+      });
+    }
+  } catch (err) {
+    res.status(500).send(`
+    Oh no! Something went wrong! 😱
+    Error: ${err}
+    `);
+  }
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#DELETEuserDeregister">DELETE userDeregister</a></li><li><a href="global.html#DELETEuserRemoveFromFavs">DELETE userRemoveFromFavs</a></li><li><a href="global.html#DELETEuserRemoveFromWatchList">DELETE userRemoveFromWatchList</a></li><li><a href="global.html#GETgetActorDetails">GET getActorDetails</a></li><li><a href="global.html#GETgetActorList">GET getActorList</a></li><li><a href="global.html#GETgetDirectorList">GET getDirectorList</a></li><li><a href="global.html#GETgetDiretctorDetails">GET getDiretctorDetails</a></li><li><a href="global.html#GETgetGenreDetails">GET getGenreDetails</a></li><li><a href="global.html#GETgetGenreList">GET getGenreList</a></li><li><a href="global.html#GETgetMovieCast">GET getMovieCast</a></li><li><a href="global.html#GETgetMovieDetails">GET getMovieDetails</a></li><li><a href="global.html#GETgetMovieList">GET getMovieList</a></li><li><a href="global.html#GETgetUserDetails">GET getUserDetails</a></li><li><a href="global.html#GETgetUserFavs">GET getUserFavs</a></li><li><a href="global.html#GETgetUserList">GET getUserList</a></li><li><a href="global.html#GETgetUserWatchList">GET getUserWatchList</a></li><li><a href="global.html#POSTuserAddToFavs">POST userAddToFavs</a></li><li><a href="global.html#POSTuserRegister">POST userRegister</a></li><li><a href="global.html#PUTuserUpdate">PUT userUpdate</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sat Nov 13 2021 15:19:15 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

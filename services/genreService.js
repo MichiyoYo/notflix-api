@@ -1,6 +1,30 @@
+/**
+ * Services for Genre Model
+ * @requires ../models/genre
+ * @exports getGenreList
+ * @exports getGenreDetails
+ */
+
+/**
+ * @description the Genre Model
+ * @ignore
+ */
 const GenreModel = require("../models/genre");
+
+/**
+ * @description the Gemres entity
+ * @ignore
+ */
 const Genres = GenreModel.Genre;
 
+/**
+ * Endpoint: /genres
+ * Retrieves the list of all the genres
+ * @async
+ * @function GET getGenreList
+ * @param {Promise<string>} req the request
+ * @param {Promise<object>} res the data from the storage
+ */
 exports.getGenreList = async function (req, res) {
   try {
     const genres = await Genres.find();
@@ -13,6 +37,15 @@ exports.getGenreList = async function (req, res) {
   }
 };
 
+/**
+ * Endpoint: /genres/[name]
+ * Retrieves the detals of a genre
+ * @async
+ * @function GET getGenreDetails
+ * @param {Promise<string>} req the request
+ * @param {Promise<string>} res the data from the storage
+ * @example /genres/Thriller
+ */
 exports.getGenreDetails = async function (req, res) {
   const { name } = req.params;
   try {

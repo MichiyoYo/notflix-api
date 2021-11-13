@@ -1,5 +1,17 @@
+/**
+ * Actor Model
+ * @file Actor Model
+ * @requires mongoose
+ * @exports Actor the actor model
+ * @ignore
+ */
+
 const mongoose = require("mongoose");
 
+/**
+ * Actor Schema
+ * @ignore
+ */
 let actorSchema = mongoose.Schema({
   Name: { type: String, required: true },
   Bio: String,

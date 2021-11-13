@@ -1,3 +1,14 @@
+/**
+ * Routers for Users
+ * @file User Routes
+ * @requires express
+ * @requires express-validator
+ * @requires passport
+ * @requires ../controllers/userController
+ * @requires ../authentication/passport
+ * @ignore
+ */
+
 var express = require("express"),
   router = express.Router();
 const { check } = require("express-validator");
@@ -5,8 +16,6 @@ const { check } = require("express-validator");
 const userController = require("../controllers/userController");
 const passport = require("passport");
 require("../authentication/passport");
-
-//User Routes
 
 /**
  * Endpoint: /users
