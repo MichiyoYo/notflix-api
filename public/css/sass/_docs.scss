@@ -19,3 +19,28 @@ code {
   color: #e91e63;
   font-weight: 500;
 }
+
+.table td.fit,
+.table th.fit {
+  white-space: nowrap;
+  width: 1%;
+}
+
+@mixin width {
+  width: auto !important;
+}
+
+table {
+  &.table-fit {
+    @include width;
+    table-layout: auto !important;
+    thead th,
+    tfoot th {
+      @include width;
+    }
+    tbody td,
+    tfoot td {
+      @include width;
+    }
+  }
+}

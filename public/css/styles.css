@@ -72,27 +72,6 @@ a:active, a:visited, a:focus {
   display: block !important;
 }
 
-@font-face {
-  font-family: "Broadway3D";
-  src: url("/fonts/Broadway3D.ttf");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "BroadwayGradient3D";
-  src: url("/fonts/BroadwayGradient3D.ttf");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "BroadwayShadow";
-  src: url("/fonts/BroadwayShadow.ttf");
-  font-weight: normal;
-  font-style: normal;
-}
-
 body.home {
   background: url("/img/notflix-home-bg.jpg") center center no-repeat;
   background-size: cover;
@@ -211,4 +190,25 @@ code {
 .method {
   color: #e91e63;
   font-weight: 500;
+}
+
+.table td.fit,
+.table th.fit {
+  white-space: nowrap;
+  width: 1%;
+}
+
+table.table-fit {
+  width: auto !important;
+  table-layout: auto !important;
+}
+
+table.table-fit thead th,
+table.table-fit tfoot th {
+  width: auto !important;
+}
+
+table.table-fit tbody td,
+table.table-fit tfoot td {
+  width: auto !important;
 }
